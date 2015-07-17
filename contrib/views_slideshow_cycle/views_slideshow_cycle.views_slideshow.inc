@@ -523,7 +523,7 @@ function views_slideshow_cycle_views_slideshow_options_form_validate(&$form, &$f
     form_error($form['views_slideshow_cycle']['speed'], t('!setting must be numeric!', array('!setting' => 'Speed')));
   }
   if (!is_numeric($form_state['values']['style_options']['views_slideshow_cycle']['timeout'])) {
-    form_error($form['views_slideshow_cycle']['speed'], t('!setting must be numeric!', array('!setting' => 'Timeout')));
+    form_error($form['views_slideshow_cycle']['timeout'], t('!setting must be numeric!', array('!setting' => 'Timeout')));
   }
   if (!is_numeric($form_state['values']['style_options']['views_slideshow_cycle']['remember_slide_days'])) {
     form_error($form['views_slideshow_cycle']['remember_slide_days'], t('!setting must be numeric!', array('!setting' => 'Slide days')));
