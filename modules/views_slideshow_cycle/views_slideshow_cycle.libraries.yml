@@ -4,3 +4,26 @@ views_slideshow_cycle.formoptions:
   dependencies:
     - core/jquery
     - core/drupal
+
+views_slideshow_cycle.views_slideshow_cycle:
+  css:
+    component:
+      css/views_slideshow_cycle.css: {}
+  js:
+    js/views_slideshow_cycle.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+views_slideshow_cycle.jquery_cycle:
+  remote: http://malsup.github.io/jquery.cycle.all.js
+  version: 3.0.3
+  license:
+    name: MIT
+    url: http://jquery.malsup.com/license.html
+    gpl-compatible: true
+  js:
+    /libraries/jquery.cycle/jquery.cycle.all.js: {}
+  dependencies:
+    - core/jquery
