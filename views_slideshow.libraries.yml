@@ -1,0 +1,13 @@
+views_slideshow.widget_info:
+  css:
+    css/views_slideshow.css: {}
+  js:
+    js/views_slideshow.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+views_slideshow.controls_text:
+  css:
+    css/controls_text.css: {}
