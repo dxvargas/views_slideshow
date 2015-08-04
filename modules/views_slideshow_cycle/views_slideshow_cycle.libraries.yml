@@ -1,0 +1,6 @@
+views_slideshow_cycle.formoptions:
+  js:
+    js/formoptions.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
