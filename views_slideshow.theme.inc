@@ -131,7 +131,8 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     }
 
     // Build our widgets
-    foreach ($weight as $location => $order) {
+    // @todo Finish widget rendering.
+    /*foreach ($weight as $location => $order) {
       $vars[$location . '_widget_rendered'] = '';
       foreach ($order as $order_num => $widgets) {
         if (is_array($widgets)) {
@@ -148,7 +149,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
           }
         }
       }
-    }
+    }*/
 
     // Process Slideshow
     $slides = array(
@@ -174,7 +175,6 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
  * @ingroup themeable
  */
 function theme_views_slideshow_pager_widget_render(&$vars) {
-//function views_slideshow_test(&$vars) {
   if (isset($vars['settings']['hide_on_single_slide']) && $vars['settings']['hide_on_single_slide'] === 1 && count($vars['rows']) < 2) {
     return '';
   }
