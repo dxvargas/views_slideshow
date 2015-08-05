@@ -216,9 +216,8 @@ function views_slideshow_pager_fields_views_slideshow_widget_pager_form_options(
   $options = array();
 
   // Get each field and it's name.
-  // TODO: This is not working, the label is always empty.
   foreach ($view->displayHandler->getHandlers('field') as $field => $handler) {
-    $options[$field] = $handler->label();
+    $options[$field] = $handler->adminLabel();
   }
 
   // Need to wrap this so it indents correctly.
