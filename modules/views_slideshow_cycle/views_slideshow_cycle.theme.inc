@@ -231,7 +231,8 @@ function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
             $rendered_fields .= drupal_render($test);
           }
         }
-        $vars['rendered_field_items'] = array(
+
+        $vars['rendered_field_items'][] = array(
           '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
           '#vss_id' => $vars['vss_id'],
           '#item' => $rendered_fields,
