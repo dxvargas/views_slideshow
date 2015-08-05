@@ -280,6 +280,8 @@ class Slideshow extends StylePluginBase {
     $form['views_slideshow_wrapper_close'] = array(
       '#markup' => '</div>',
     );
+
+    $form['#attached']['library'] = array('views_slideshow/views_slideshow.form');
   }
 
   /**
