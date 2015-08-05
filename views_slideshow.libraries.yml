@@ -1,6 +1,11 @@
-views_slideshow.widget_info:
+views_slideshow.form:
+  version: VERSION
   css:
-    css/views_slideshow.css: {}
+    theme:
+      css/views_slideshow.css: {}
+
+views_slideshow.widget_info:
+  version: VERSION
   js:
     js/views_slideshow.js: {}
   dependencies:
@@ -9,5 +14,6 @@ views_slideshow.widget_info:
     - core/drupalSettings
 
 views_slideshow.controls_text:
+  version: VERSION
   css:
     css/controls_text.css: {}
