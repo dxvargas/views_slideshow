@@ -206,9 +206,9 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_
  */
 function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
   $slide_count = count($vars['view']->result);
-  $items_per_slide = $vars['view']->style_options['views_slideshow_cycle']['items_per_slide'];
+  $items_per_slide = $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide'];
 
-  if ($vars['view']->style_options['slideshow_type'] == 'views_slideshow_cycle') {
+  if ($vars['view']->style_plugin->options['slideshow_type'] == 'views_slideshow_cycle') {
     $slide_count = $slide_count / $items_per_slide;
     $slide_count = ceil($slide_count);
   }
