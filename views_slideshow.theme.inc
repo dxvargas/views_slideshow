@@ -131,8 +131,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     }
 
     // Build our widgets
-    // @todo Finish widget rendering.
-    /*foreach ($weight as $location => $order) {
+    foreach ($weight as $location => $order) {
       $vars[$location . '_widget_rendered'] = '';
       foreach ($order as $order_num => $widgets) {
         if (is_array($widgets)) {
@@ -149,7 +148,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
           }
         }
       }
-    }*/
+    }
 
     // Process Slideshow
     $slides = array(
@@ -240,18 +239,17 @@ function _views_slideshow_preprocess_views_slideshow_pager_fields(&$vars) {
       $rendered_fields = '';
       foreach ($vars['settings']['views_slideshow_pager_fields_fields'] as $field => $use) {
         if ($use !== 0 && is_object($vars['view']->field[$field])) {
-          $test = array(
+          $rendered_fields[] = array(
             '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
             '#view' => $vars['view'],
             '#label' => $vars['view']->field[$field]->options['label'],
             '#output' => $vars['view']->style_plugin->getField($count, $field),
             '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
           );
-          $rendered_fields .= drupal_render($test);
         }
       }
 
-      $item = array(
+      $vars['rendered_field_items'][] = array(
         '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
         '#vss_id' => $vars['vss_id'],
         '#item' => $rendered_fields,
@@ -259,8 +257,6 @@ function _views_slideshow_preprocess_views_slideshow_pager_fields(&$vars) {
         '#location' => $vars['location'],
         '#length' => count($vars['view']->result),
       );
-
-      $vars['rendered_field_items'] .= drupal_render($item);
     }
   }
 }
