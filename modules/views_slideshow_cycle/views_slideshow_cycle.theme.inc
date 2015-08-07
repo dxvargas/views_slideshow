@@ -12,7 +12,6 @@ use Drupal\Component\Utility\Html;
  *
  * @ingroup themeable
  */
-
 function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $settings = $vars['settings'];
   $rows = $vars['rows'];
@@ -28,7 +27,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$va
       $value = trim($value);
 
       if (is_numeric($value)) {
-        $value = (int)$value;
+        $value = (int) $value;
       }
       elseif (strtolower($value) == 'true') {
         $value = TRUE;
@@ -43,7 +42,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$va
 
   $settings = array_merge(
     array(
-      'num_divs' => sizeof($rows),
+      'num_divs' => count($rows),
       'id_prefix' => '#views_slideshow_cycle_main_',
       'div_prefix' => '#views_slideshow_cycle_div_',
       'vss_id' => $vss_id,
@@ -138,13 +137,13 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$va
   $rendered_rows = '';
   foreach ($rows as $count => $item) {
     $items[] = $item;
-    if (count($items) == $items_per_slide || $count == (count($rows)-1)) {
+    if (count($items) == $items_per_slide || $count == (count($rows) - 1)) {
       $rendered_rows[] = array(
         '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_cycle_main_frame_row'),
         '#vss_id' => $vss_id,
         '#items' => $items,
         '#count' => $slideshow_count,
-        '#view' => $vars['view']
+        '#view' => $vars['view'],
       );
 
       $items = array();
@@ -166,7 +165,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row(
   $vars['attributes']['class'][] = 'views_slideshow_slide views-row-' . $current;
 
   if ($vars['count']) {
-    $vars['attributes']['class'][] =  'views_slideshow_cycle_hidden';
+    $vars['attributes']['class'][] = 'views_slideshow_cycle_hidden';
   }
   $vars['attributes']['class'][] = ($vars['count'] % 2) ? 'views-row-even' : 'views-row-odd';
 
@@ -183,6 +182,11 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row(
   }
 }
 
+/**
+ * Views Slideshow slideshow row items.
+ *
+ * @ingroup themeable
+ */
 function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
   $vars['attributes']['class'][] = 'views-row views-row-' . $vars['count'];
   $vars['attributes']['class'][] = ($vars['count'] % 2) ? 'views-row-even' : 'views-row-odd';
@@ -193,16 +197,14 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_
     $vars['attributes']['class'][] = 'views-row-last';
   }
 
-  /**
-   * Support custom row classes.
-   */
+  // Support custom row classes.
   if ($row_class = $vars['view']->style_plugin->getRowClass($vars['count'])) {
     $vars['attributes']['class'][] = $row_class;
   }
 }
 
 /**
- * Implements hook_preprocess_views_slideshow_pager_fields()
+ * Implements hook_preprocess_views_slideshow_pager_fields().
  */
 function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
   $slide_count = count($vars['view']->result);
@@ -237,7 +239,7 @@ function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
           '#vss_id' => $vars['vss_id'],
           '#item' => $rendered_fields,
           '#count' => $count,
-          '#location' => $vars['location']
+          '#location' => $vars['location'],
         );
       }
     }
@@ -245,7 +247,7 @@ function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
 }
 
 /**
- * Implement hook_preprocess_views_slideshow_slide_counter()
+ * Implement hook_preprocess_views_slideshow_slide_counter().
  */
 function views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
   if ($vars['view']->style_options['slideshow_type'] == 'views_slideshow_cycle') {
