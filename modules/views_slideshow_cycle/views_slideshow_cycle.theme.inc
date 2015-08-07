@@ -12,7 +12,7 @@ use Drupal\Component\Utility\Html;
  *
  * @ingroup themeable
  */
-function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$vars) {
+function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $settings = $vars['settings'];
   $rows = $vars['rows'];
   $view = $vars['view'];
@@ -159,7 +159,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$va
  *
  * @ingroup themeable
  */
-function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
+function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
   $current = $vars['count'] + 1;
   $vars['attributes']['class'][] = 'views_slideshow_cycle_slide';
   $vars['attributes']['class'][] = 'views_slideshow_slide views-row-' . $current;
@@ -187,7 +187,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row(
  *
  * @ingroup themeable
  */
-function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
+function template_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
   $vars['attributes']['class'][] = 'views-row views-row-' . $vars['count'];
   $vars['attributes']['class'][] = ($vars['count'] % 2) ? 'views-row-even' : 'views-row-odd';
   if ($vars['count'] == 0) {
@@ -206,7 +206,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_
 /**
  * Implements hook_preprocess_views_slideshow_pager_fields().
  */
-function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
+function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
   $slide_count = count($vars['view']->result);
   $items_per_slide = $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide'];
 
@@ -249,7 +249,7 @@ function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
 /**
  * Implement hook_preprocess_views_slideshow_slide_counter().
  */
-function views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
+function _views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
   if ($vars['view']->style_options['slideshow_type'] == 'views_slideshow_cycle') {
     $vars['slide_count'] = $vars['slide_count'] / $vars['view']->style_options['views_slideshow_cycle']['items_per_slide'];
     $vars['slide_count'] = ceil($vars['slide_count']);
