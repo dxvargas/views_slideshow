@@ -247,7 +247,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
 }
 
 /**
- * Implement hook_preprocess_views_slideshow_slide_counter().
+ * Implements hook_preprocess_views_slideshow_slide_counter().
  */
 function _views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
   if ($vars['view']->style_plugin->options['slideshow_type'] == 'views_slideshow_cycle') {
