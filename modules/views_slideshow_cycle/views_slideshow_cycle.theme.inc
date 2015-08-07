@@ -250,8 +250,8 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
  * Implement hook_preprocess_views_slideshow_slide_counter().
  */
 function _views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
-  if ($vars['view']->style_options['slideshow_type'] == 'views_slideshow_cycle') {
-    $vars['slide_count'] = $vars['slide_count'] / $vars['view']->style_options['views_slideshow_cycle']['items_per_slide'];
+  if ($vars['view']->style_plugin->options['slideshow_type'] == 'views_slideshow_cycle') {
+    $vars['slide_count'] = $vars['slide_count'] / $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide'];
     $vars['slide_count'] = ceil($vars['slide_count']);
   }
 }
