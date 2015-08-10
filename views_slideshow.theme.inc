@@ -178,7 +178,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
  *
  * @ingroup themeable
  */
-function theme_views_slideshow_pager_widget_render(&$vars) {
+function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
   if (isset($vars['settings']['hide_on_single_slide']) && $vars['settings']['hide_on_single_slide'] === 1 && count($vars['rows']) < 2) {
     return '';
   }
@@ -286,7 +286,7 @@ function template_preprocess_views_slideshow_pager_field_item(&$vars) {
  *
  * @inggroup themeable
  */
-function theme_views_slideshow_controls_widget_render(&$vars) {
+function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
   // Add javascript settings for the controls type.
   $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowControls'][$vars['vss_id']] = array(
@@ -375,8 +375,8 @@ function template_preprocess_views_slideshow_controls_text_next(&$vars) {
  *
  * @inggroup themeable
  */
-function theme_views_slideshow_slide_counter_widget_render($vars) {
-  return array(
+function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars) {
+  $test = array(
     '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_slide_counter'),
     '#vss_id' => $vars['vss_id'],
     '#view' => $vars['view'],
@@ -384,10 +384,15 @@ function theme_views_slideshow_slide_counter_widget_render($vars) {
     '#location' => $vars['location'],
     '#rows' => $vars['rows'],
   );
+
+  return $test;
+  //return drupal_render($test);
 }
 
 /**
  * Views Slideshow: slide counter.
+ *
+ * @inggroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_slide_counter';
