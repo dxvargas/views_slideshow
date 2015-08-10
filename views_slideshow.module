@@ -292,10 +292,6 @@ function views_slideshow_pager_fields_views_slideshow_widget_pager_form_options(
     '#options' => $options,
     '#default_value' => $defaults['views_slideshow_pager_fields_fields'],
     '#description' => t('Choose the fields that will appear in the pager.'),
-    // TODO: Check what this #process does.
-    /*'#process' => array(
-      'form_process_checkboxes',
-    ),*/
     '#states' => array(
       'visible' => array(
         ':input[name="' . $dependency . '[enable]"]' => array('checked' => TRUE),
