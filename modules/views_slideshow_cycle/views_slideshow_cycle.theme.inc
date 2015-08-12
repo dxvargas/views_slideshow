@@ -70,41 +70,38 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
     $settings['vss_id'] = $vss_id;
   }
 
-  // Don't load javascript unless libraries module is present.
-  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
 
-    // Load Json2
-    // TODO
-    /*$json_path = libraries_get_path('json2');
-    if (!empty($json_path) && file_exists($json_path . '/json2.js')) {
-      drupal_add_js($json_path . '/json2.js');
-    }*/
-
-    // Load the pause library
-    // TODO: Change it to use library.
-    /*if (!empty($settings['pause_in_middle']) && $pause_path = _views_slideshow_cycle_pause_library_path()) {
-      drupal_add_js($pause_path);
-    }*/
+  // Load the json2 library.
+  // @todo Check if there is a better way to detect optional libraries.
+  $json2 = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'json2');
+  if (isset($json2['js'][0]['data']) || !file_exists($json2['js'][0]['data'])) {
+    $vars['#attached']['library'][] = 'views_slideshow_cycle/json2';
   }
 
-  // Load jQuery Cycle
-  $vars['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle.jquery_cycle';
+  // Load the pause library
+  // @todo Check if there is a better way to detect optional libraries.
+  if (!empty($settings['pause_in_middle'])) {
+    $pause = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_pause');
+    if (isset($pause['js'][0]['data']) || !file_exists($pause['js'][0]['data'])) {
+      $vars['#attached']['library'][] = 'views_slideshow_cycle/jquery_pause';
+    }
+  }
 
-  // Load our cycle library.
-  $vars['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle.views_slideshow_cycle';
+  // Load jQuery Cycle library.
+  $vars['#attached']['library'][] = 'views_slideshow_cycle/jquery_cycle';
+
+  // Load our custom cycle library.
+  $vars['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle';
   $vars['#attached']['drupalSettings']['viewsSlideshowCycle']['#views_slideshow_cycle_main_' . $vss_id] = $settings;
 
   // Add hover intent library.
-  // TODO:
-  /*if ($settings['pause']) {
-    if (\Drupal::moduleHandler()->moduleExists('libraries')) {
-      // Load jQuery hoverIntent
-      $hoverIntent_path = libraries_get_path('jquery.hoverIntent');
-      if (!empty($hoverIntent_path) && file_exists($hoverIntent_path . '/jquery.hoverIntent.js')) {
-        drupal_add_js($hoverIntent_path . '/jquery.hoverIntent.js');
-      }
+  // @todo Check if there is a better way to detect optional libraries.
+  if ($settings['pause']) {
+    $hoverIntent = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow', 'jquery_hoverIntent');
+    if (isset($hoverIntent['js'][0]['data']) || !file_exists($hoverIntent['js'][0]['data'])) {
+      $vars['#attached']['library'][] = 'views_slideshow/jquery_hoverIntent';
     }
-  }*/
+  }
 
   // Add the slideshow elements.
   $vars['attributes']['class'][] = 'views_slideshow_cycle_teaser_section';

@@ -8,6 +8,7 @@
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Asset;
 
 /**
  * Implements hook_help().
@@ -23,64 +24,6 @@ function views_slideshow_cycle_help($route_name, RouteMatchInterface $route_matc
       }
       return $output;
   }
-}
-
-/**
- * Gets the path to the jQuery cycle library.
- *
- * @return string|FALSE
- *   The path to the cycle library js file, or FALSE if not found.
- */
-function _views_slideshow_cycle_library_path() {
-  $cycle_path = libraries_get_path('jquery.cycle');
-
-  if (!empty($cycle_path)) {
-    // Attempt to use minified version of jQuery cycle plugin.
-    if (file_exists($cycle_path . '/jquery.cycle.all.min.js')) {
-      $cycle_path .= '/jquery.cycle.all.min.js';
-    }
-    // Otherwise use non-minified version if available.
-    elseif (file_exists($cycle_path . '/jquery.cycle.all.js')) {
-      $cycle_path .= '/jquery.cycle.all.js';
-    }
-    else {
-      $cycle_path = FALSE;
-    }
-  }
-  else {
-    $cycle_path = FALSE;
-  }
-
-  return $cycle_path;
-}
-
-/**
- * Gets the path to the jQuery pause library.
- *
- * @return string|FALSE
- *   The path to the pause library js file, or FALSE if not found.
- */
-function _views_slideshow_cycle_pause_library_path() {
-  $pause_path = libraries_get_path('jquery.pause');
-
-  if (!empty($pause_path)) {
-    // Attempt to use minified version of jQuery pause plugin.
-    if (file_exists($pause_path . '/jquery.pause.min.js')) {
-      $pause_path .= '/jquery.pause.min.js';
-    }
-    // Otherwise use non-minified version if available.
-    elseif (file_exists($pause_path . '/jquery.pause.js')) {
-      $pause_path .= '/jquery.pause.js';
-    }
-    else {
-      $pause_path = FALSE;
-    }
-  }
-  else {
-    $pause_path = FALSE;
-  }
-
-  return $pause_path;
 }
 
 /**
@@ -155,15 +98,12 @@ function views_slideshow_cycle_views_slideshow_option_definition() {
 }
 
 /**
- * This functions was previously stored in a dedicated file.
- * Keep it here for now, Views Slideshow will move to plugins.
- */
-
-/**
  * Implements hook_views_slideshow_slideshow_slideshow_type_form().
  */
 function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$form_state, &$view) {
-  if (!$cycle_path = _views_slideshow_cycle_library_path()) {
+  // @todo Check if there is a better way to detect installed libraries.
+  $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
+  if (isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
     $form['views_slideshow_cycle']['no_cycle_js'] = array(
       '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries called jquery.cycle, and then copy jquery.cycle.all.min.js or jquery.cycle.all.js into it. You can find the plugin at !url.', array('!url' => \Drupal::l('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank'))))) . '</div>',
     );
@@ -351,7 +291,9 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
     ),
   );
 
-  if (!$pause_path = _views_slideshow_cycle_pause_library_path()) {
+  // @todo Check if there is a better way to detect optional libraries.
+  $pause = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_pause');
+  if (isset($pause['js'][0]['data']) || !file_exists($pause['js'][0]['data'])) {
     $form['views_slideshow_cycle']['pause_in_middle'] = array(
       '#type' => 'checkbox',
       '#title' => t('Pause The Slideshow In The Middle of the Transition'),
@@ -403,7 +345,7 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
     '#description' => t("The amount of the slide that needs to be shown to have it rotate. You can set the value in percentage (ex: 50%) or in pixels (ex: 250). The slidehsow will not rotate until it's height/width/total area, depending on the calculation method you have chosen above, is less than the value you have entered in this field."),
     '#size' => 4,
   );
-  $form['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle.formoptions';
+  $form['#attached']['library'][] = 'views_slideshow_cycle/formoptions';
   $form['views_slideshow_cycle']['nowrap'] = array(
     '#type' => 'checkbox',
     '#title' => t('End slideshow after last slide'),
@@ -491,8 +433,9 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
     '#markup' => '<h2>' . t('jQuery Cycle Custom Options') . '</h2>',
   );
 
-  $json2_path = libraries_get_path('json2');
-  if (empty($json2_path) || !file_exists($json2_path . '/json2.js')) {
+  // @todo Check if there is a better way to detect optional libraries.
+  $json2 = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'json2');
+  if (isset($json2['js'][0]['data']) || !file_exists($json2['js'][0]['data'])) {
     // @todo Check if there is a better way to create this target _blank link.
     $form['views_slideshow_cycle']['no_json_js'] = array(
       '#markup' => '<div>' . t('To use the advanced options you need to download json2.js. You can do this by clicking the download button at <a href="https://github.com/douglascrockford/JSON-js" target="_black">https://github.com/douglascrockford/JSON-js</a> and extract json2.js to libraries/json2') . '</div>',

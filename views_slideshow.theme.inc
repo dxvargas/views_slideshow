@@ -87,7 +87,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
       }
     }
 
-    $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.widget_info';
+    $vars['#attached']['library'][] = 'views_slideshow/widget_info';
     $vars['#attached']['drupalSettings']['viewsSlideshow'][$vss_id] = array(
       'methods' => $methods,
       'paused' => 0,
@@ -184,7 +184,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
   }
 
   // Add javascript settings for the pager type.
-  $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.widget_info';
+  $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPager'][$vars['vss_id']] = array(
     $vars['location'] => array(
       'type' => views_slideshow_format_addons_name($vars['settings']['type']),
@@ -212,24 +212,21 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
  */
 function template_preprocess_views_slideshow_pager_fields(&$vars) {
   // Add javascript settings for the field.
-  $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.widget_info';
+  $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPagerFields'][$vars['vss_id']] = array(
     $vars['location'] => array(
       'activatePauseOnHover' => $vars['settings']['views_slideshow_pager_fields_hover'],
     ),
   );
 
-  // Add hover intent library
-  // @todo: review how to add the library using the library API.
-  /*if ($vars['settings']['views_slideshow_pager_fields_hover']) {
-    if (\Drupal::moduleHandler()->moduleExists('libraries')) {
-      // Load jQuery hoverIntent
-      $hoverIntent_path = libraries_get_path('jquery.hoverIntent');
-      if (!empty($hoverIntent_path) && file_exists($hoverIntent_path . '/jquery.hoverIntent.js')) {
-        drupal_add_js($hoverIntent_path . '/jquery.hoverIntent.js');
-      }
+  // Add hover intent library.
+  // @todo Check if there is a better way to detect optional libraries.
+  if ($vars['settings']['views_slideshow_pager_fields_hover']) {
+    $hoverIntent = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow', 'jquery_hoverIntent');
+    if (isset($hoverIntent['js'][0]['data']) || !file_exists($hoverIntent['js'][0]['data'])) {
+      $vars['#attached']['library'][] = 'views_slideshow/jquery_hoverIntent';
     }
-  }*/
+  }
 
   $vars['widget_id'] = $vars['attributes']['id'];
   // Add our class to the wrapper.
@@ -288,7 +285,7 @@ function template_preprocess_views_slideshow_pager_field_item(&$vars) {
  */
 function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
   // Add javascript settings for the controls type.
-  $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.widget_info';
+  $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowControls'][$vars['vss_id']] = array(
     $vars['location'] => array(
       'type' => views_slideshow_format_addons_name($vars['settings']['type']),
@@ -316,7 +313,7 @@ function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
  * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_text(&$vars) {
-  $vars['#attached']['library'][] = 'views_slideshow/views_slideshow.controls_text';
+  $vars['#attached']['library'][] = 'views_slideshow/controls_text';
 
   $vars['attributes']['class'][] = 'views_slideshow_controls_text';
 
