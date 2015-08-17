@@ -6,6 +6,8 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Asset\AttachedAssets;
+use Drupal\Core\Asset;
 
 /**
  * Views Slideshow: Theme the main frame wrapper.
@@ -50,20 +52,11 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
     $new_settings
   );
 
-  // We need to go through the current js setting values to make sure the one we
+  // We need to use a global variable to make sure the one we
   // want to add is not already there. If it is already there then append -[num]
   // to the id to make it unique.
-  $slideshow_count = 1;
-  // TODO: Review this.
-  /*$current_settings = drupal_add_js();
-  foreach ($current_settings['settings']['data'] AS $current_setting) {
-    if (isset($current_setting['viewsSlideshowCycle'])) {
-      $current_keys = array_keys($current_setting['viewsSlideshowCycle']);
-      if (stristr($current_keys[0], '#views_slideshow_cycle_main_' . $vss_id)) {
-        $slideshow_count++;
-      }
-    }
-  }*/
+  global $slideshow_count;
+  $slideshow_count++;
 
   if ($slideshow_count > 1) {
     $vss_id .= '-' . $slideshow_count;
@@ -130,7 +123,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $vars['items_per_slide'] = $items_per_slide;
 
   $items = array();
-  $slideshow_count = 0;
+  $index = 0;
   $rendered_rows = '';
   foreach ($rows as $count => $item) {
     $items[] = $item;
@@ -139,12 +132,12 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
         '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_cycle_main_frame_row'),
         '#vss_id' => $vss_id,
         '#items' => $items,
-        '#count' => $slideshow_count,
+        '#count' => $index,
         '#view' => $vars['view'],
       );
 
       $items = array();
-      $slideshow_count++;
+      $index++;
     }
   }
 
