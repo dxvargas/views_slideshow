@@ -67,7 +67,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // Load the json2 library.
   // @todo Check if there is a better way to detect optional libraries.
   $json2 = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'json2');
-  if (isset($json2['js'][0]['data']) || !file_exists($json2['js'][0]['data'])) {
+  if (isset($json2['js'][0]['data']) && file_exists($json2['js'][0]['data'])) {
     $vars['#attached']['library'][] = 'views_slideshow_cycle/json2';
   }
 
@@ -75,7 +75,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // @todo Check if there is a better way to detect optional libraries.
   if (!empty($settings['pause_in_middle'])) {
     $pause = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_pause');
-    if (isset($pause['js'][0]['data']) || !file_exists($pause['js'][0]['data'])) {
+    if (isset($pause['js'][0]['data']) && file_exists($pause['js'][0]['data'])) {
       $vars['#attached']['library'][] = 'views_slideshow_cycle/jquery_pause';
     }
   }
@@ -91,7 +91,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // @todo Check if there is a better way to detect optional libraries.
   if ($settings['pause']) {
     $hoverIntent = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow', 'jquery_hoverIntent');
-    if (isset($hoverIntent['js'][0]['data']) || !file_exists($hoverIntent['js'][0]['data'])) {
+    if (isset($hoverIntent['js'][0]['data']) && file_exists($hoverIntent['js'][0]['data'])) {
       $vars['#attached']['library'][] = 'views_slideshow/jquery_hoverIntent';
     }
   }
