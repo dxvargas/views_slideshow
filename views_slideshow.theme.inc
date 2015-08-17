@@ -141,7 +141,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
       foreach ($order as $order_num => $widgets) {
         if (is_array($widgets)) {
           foreach ($widgets as $widget_id) {
-            $vars[$widget_id . '_' . $location] = array(
+            $vars[$location . '_widget_rendered'][] = array(
               '#theme' => $view->buildThemeFunctions($widget_id . '_widget_render'),
               '#vss_id' => $vss_id,
               '#view' => $view,
@@ -149,7 +149,6 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
               '#location' => $location,
               '#rows' => $rows,
             );
-            $vars[$location . '_widget_rendered'][] = $vars[$widget_id . '_' . $location];
           }
         }
       }
@@ -195,7 +194,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
   $attributes['class'][] = 'widget_pager widget_pager_' . $vars['location'];
   $attributes['id'] = 'widget_pager_' . $vars['location'] . '_' . $vars['vss_id'];
 
-  $test = array(
+  $pager = array(
     '#theme' => $vars['view']->buildThemeFunctions($vars['settings']['type']),
     '#vss_id' => $vars['vss_id'],
     '#view' => $vars['view'],
@@ -204,7 +203,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
     '#attributes' => $attributes,
   );
 
-  return drupal_render($test);
+  return \Drupal::service('renderer')->render($pager);
 }
 
 /**
@@ -373,7 +372,7 @@ function template_preprocess_views_slideshow_controls_text_next(&$vars) {
  * @inggroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars) {
-  $test = array(
+  $slide = array(
     '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_slide_counter'),
     '#vss_id' => $vars['vss_id'],
     '#view' => $vars['view'],
@@ -382,8 +381,7 @@ function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars)
     '#rows' => $vars['rows'],
   );
 
-  return $test;
-  //return drupal_render($test);
+  return \Drupal::service('renderer')->render($slide);
 }
 
 /**
