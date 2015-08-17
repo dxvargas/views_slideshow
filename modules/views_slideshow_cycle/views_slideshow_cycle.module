@@ -620,5 +620,5 @@ function views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
  */
 function views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
   \Drupal::moduleHandler()->loadInclude('views_slideshow_cycle', 'inc', 'views_slideshow_cycle.theme');
-  views_slideshow_cycle_preprocess_views_slideshow_slide_counter($vars);
+  _views_slideshow_cycle_preprocess_views_slideshow_slide_counter($vars);
 }
