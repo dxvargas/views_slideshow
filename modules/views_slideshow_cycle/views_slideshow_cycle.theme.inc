@@ -54,13 +54,11 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // We need to go through the current js setting values to make sure the one we
   // want to add is not already there. If it is already there then append -[num]
   // to the id to make it unique.
-  // @todo Find the proper way to access drupalSettings from php.
-  /*$slideshow_count = 1;
-  $current_settings = drupal_add_js();
-  foreach ($current_settings['settings']['data'] AS $current_setting) {
-    if (isset($current_setting['viewsSlideshowCycle'])) {
-      $current_keys = array_keys($current_setting['viewsSlideshowCycle']);
-      if (stristr($current_keys[0], '#views_slideshow_cycle_main_' . $vss_id)) {
+  $slideshow_count = 1;
+  global $processedCycles;
+  if (is_array($processedCycles)) {
+    foreach ($processedCycles as $processedCycle) {
+      if (stristr($processedCycle, '#views_slideshow_cycle_main_' . $vss_id)) {
         $slideshow_count++;
       }
     }
@@ -69,7 +67,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   if ($slideshow_count > 1) {
     $vss_id .= '-' . $slideshow_count;
     $settings['vss_id'] = $vss_id;
-  }*/
+  }
 
   // Load the json2 library.
   // @todo Check if there is a better way to detect optional libraries.
@@ -93,6 +91,8 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // Load our custom cycle library.
   $vars['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle';
   $vars['#attached']['drupalSettings']['viewsSlideshowCycle']['#views_slideshow_cycle_main_' . $vss_id] = $settings;
+
+  $processedCycles['#views_slideshow_cycle_main_' . $vss_id] = '#views_slideshow_cycle_main_' . $vss_id;
 
   // Add hover intent library.
   // @todo Check if there is a better way to detect optional libraries.
