@@ -303,7 +303,7 @@ function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
     );
   }
 
-  return $output;
+  return \Drupal::service('renderer')->render($output);
 }
 
 /**
