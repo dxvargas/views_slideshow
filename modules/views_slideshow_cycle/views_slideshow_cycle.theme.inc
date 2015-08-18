@@ -6,7 +6,6 @@
  */
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Asset;
 
 /**
@@ -52,17 +51,25 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
     $new_settings
   );
 
-  // We need to use a global variable to make sure the one we
+  // We need to go through the current js setting values to make sure the one we
   // want to add is not already there. If it is already there then append -[num]
   // to the id to make it unique.
-  global $slideshow_count;
-  $slideshow_count++;
+  // @todo Find the proper way to access drupalSettings from php.
+  /*$slideshow_count = 1;
+  $current_settings = drupal_add_js();
+  foreach ($current_settings['settings']['data'] AS $current_setting) {
+    if (isset($current_setting['viewsSlideshowCycle'])) {
+      $current_keys = array_keys($current_setting['viewsSlideshowCycle']);
+      if (stristr($current_keys[0], '#views_slideshow_cycle_main_' . $vss_id)) {
+        $slideshow_count++;
+      }
+    }
+  }
 
   if ($slideshow_count > 1) {
     $vss_id .= '-' . $slideshow_count;
     $settings['vss_id'] = $vss_id;
-  }
-
+  }*/
 
   // Load the json2 library.
   // @todo Check if there is a better way to detect optional libraries.
@@ -124,11 +131,11 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
 
   $items = array();
   $index = 0;
-  $rendered_rows = '';
+  $vars['rendered_rows'] = '';
   foreach ($rows as $count => $item) {
     $items[] = $item;
     if (count($items) == $items_per_slide || $count == (count($rows) - 1)) {
-      $rendered_rows[] = array(
+      $vars['rendered_rows'][] = array(
         '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_cycle_main_frame_row'),
         '#vss_id' => $vss_id,
         '#items' => $items,
@@ -140,8 +147,6 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
       $index++;
     }
   }
-
-  $vars['rendered_rows'] = $rendered_rows;
 }
 
 /**
@@ -212,15 +217,13 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
         $rendered_fields = '';
         foreach ($vars['settings']['views_slideshow_pager_fields_fields'] as $field => $use) {
           if ($use !== 0 && is_object($vars['view']->field[$field])) {
-            $test = array(
+            $rendered_fields[] = array(
               '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
               '#view' => $vars['view'],
               '#label' => $vars['view']->field[$field]->options['label'],
               '#output' => $vars['view']->style_plugin->getField($count, $field),
               '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
             );
-
-            $rendered_fields .= drupal_render($test);
           }
         }
 
