@@ -103,7 +103,7 @@ function views_slideshow_cycle_views_slideshow_option_definition() {
 function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$form_state, &$view) {
   // @todo Check if there is a better way to detect installed libraries.
   $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
-  if (isset($cycle['js'][0]['data']) && file_exists($cycle['js'][0]['data'])) {
+  if (!isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
     $form['views_slideshow_cycle']['no_cycle_js'] = array(
       '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries called jquery.cycle, and then copy jquery.cycle.all.min.js or jquery.cycle.all.js into it. You can find the plugin at !url.', array('!url' => \Drupal::l('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank'))))) . '</div>',
     );
@@ -435,7 +435,7 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
 
   // @todo Check if there is a better way to detect optional libraries.
   $json2 = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'json2');
-  if (isset($json2['js'][0]['data']) && file_exists($json2['js'][0]['data'])) {
+  if (!isset($json2['js'][0]['data']) || !file_exists($json2['js'][0]['data'])) {
     // @todo Check if there is a better way to create this target _blank link.
     $form['views_slideshow_cycle']['no_json_js'] = array(
       '#markup' => '<div>' . t('To use the advanced options you need to download json2.js. You can do this by clicking the download button at <a href="https://github.com/douglascrockford/JSON-js" target="_black">https://github.com/douglascrockford/JSON-js</a> and extract json2.js to libraries/json2') . '</div>',
