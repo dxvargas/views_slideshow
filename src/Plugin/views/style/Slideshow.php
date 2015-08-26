@@ -10,6 +10,7 @@ namespace Drupal\views_slideshow\Plugin\views\style;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 use Drupal\Core\Url;
+use Drupal\views_slideshow\SlideshowSkinPluginManager;
 
 /**
  * Style plugin to render each item in a grid cell.
@@ -85,6 +86,13 @@ class Slideshow extends StylePluginBase {
     $form['slideshow_skin_header'] = array(
       '#markup' => '<h2>' . t('Style') . '</h2>',
     );
+
+    $skinsManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
+    $skins_definitions = $skinsManager->getDefinitions();
+
+    /*$skins_definitions = $skinsManager->getDefinitions();*/
+
+    var_dump($skins_definitions);
 
     // Get a list of all available skins.
     $skin_info = $this->getSkins();
