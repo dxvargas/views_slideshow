@@ -8,6 +8,8 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\views_slideshow\ViewsSlideshowSkinPluginManager;
+use Drupal\views_slideshow\ViewsSlideshowSkinInterface;
 
 /**
  * Views Slideshow: slideshow.
@@ -94,24 +96,15 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     );
 
     // Process Skins
-    $skin_info = array();
-    if (isset($options['skin_info'])) {
-      $skin_info = $options['skin_info'];
-    }
+    // @todo: Understand why the class is not loaded.
+    /*$skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
+    $skin = $skinManager->createInstance($options['slideshow_skin']);
 
-    // Make sure $skin_info has all the values.
-    $skin_info += array(
-      'class' => 'default',
-      'name' => t('Untitled skin'),
-      'module' => 'views_slideshow',
-      'libraries' => array(),
-    );
+    $vars['skin'] = $skin->getClass();
 
-    $vars['skin'] = $skin_info['class'];
-
-    foreach ($skin_info['libraries'] as $library) {
-      $vars['#attached']['library'][] = $skin_info['module'] . '/' . $library;
-    }
+    foreach ($skin->getLibraries() as $library) {
+      $vars['#attached']['library'][] = $library;
+    }*/
 
     // Process Widgets.
 
