@@ -29,7 +29,7 @@ function views_slideshow_cycle_help($route_name, RouteMatchInterface $route_matc
 /**
  * Implements hook_views_slideshow_slideshow_info().
  */
-function views_slideshow_cycle_views_slideshow_slideshow_info() {
+/*function views_slideshow_cycle_views_slideshow_slideshow_info() {
   $options = array(
     'views_slideshow_cycle' => array(
       'name' => t('Cycle'),
@@ -52,12 +52,12 @@ function views_slideshow_cycle_views_slideshow_slideshow_info() {
     ),
   );
   return $options;
-}
+}*/
 
 /**
  * Implements hook_views_slideshow_option_definition().
  */
-function views_slideshow_cycle_views_slideshow_option_definition() {
+/*function views_slideshow_cycle_views_slideshow_option_definition() {
   $options['views_slideshow_cycle'] = array(
     'contains' => array(
       // Transition.
@@ -95,12 +95,12 @@ function views_slideshow_cycle_views_slideshow_option_definition() {
   );
 
   return $options;
-}
+}*/
 
 /**
  * Implements hook_views_slideshow_slideshow_slideshow_type_form().
  */
-function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$form_state, &$view) {
+/*function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$form_state, &$view) {
   // @todo Check if there is a better way to detect installed libraries.
   $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
   if (!isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
@@ -533,12 +533,12 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
       '#markup' => '<table style="width: 400px; margin-left: 10px;" id="edit-style-options-views-slideshow-cycle-advanced-options-table"></table>',
     );
   }
-}
+}*/
 
 /**
  * Implements hook_views_slideshow_options_form_validate().
  */
-function views_slideshow_cycle_views_slideshow_options_form_validate(&$form, FormStateInterface &$form_state, &$view) {
+/*function views_slideshow_cycle_views_slideshow_options_form_validate(&$form, FormStateInterface &$form_state, &$view) {
   if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'timeout')))) {
     $form_state->setErrorByName('style_options][views_slideshow_cycle][timeout', t('!setting must be numeric!', array('!setting' => t('Timeout'))));
   }
@@ -548,7 +548,7 @@ function views_slideshow_cycle_views_slideshow_options_form_validate(&$form, For
   if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'remember_slide_days')))) {
     $form_state->setErrorByName('style_options][views_slideshow_cycle][remember_slide_days', t('!setting must be numeric!', array('!setting' => t('Slide days'))));
   }
-}
+}*/
 
 /**
  * Implements hook_theme().

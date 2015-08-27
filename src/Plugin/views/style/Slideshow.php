@@ -10,7 +10,7 @@ namespace Drupal\views_slideshow\Plugin\views\style;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 use Drupal\Core\Url;
-use Drupal\views_slideshow\SlideshowSkinPluginManager;
+use Drupal\views_slideshow\ViewsSlideshowSkinPluginManager;
 
 /**
  * Style plugin to render each item in a slideshow.
@@ -66,7 +66,9 @@ class Slideshow extends StylePluginBase {
     $options['row_class_custom'] = array('default' => '');
     $options['row_class_default'] = array('default' => TRUE);
 
-    return array_merge($options, \Drupal::moduleHandler()->invokeAll('views_slideshow_option_definition'));
+    // @todo: Get all defaultConfiguration() from ViewsSlideshowType plugin instances.
+
+    return $options;
   }
 
   /**
@@ -87,11 +89,11 @@ class Slideshow extends StylePluginBase {
       '#markup' => '<h2>' . t('Style') . '</h2>',
     );
 
-    $skinsManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
-    $skins_definitions = $skinsManager->getDefinitions();
     $skins = [];
-    foreach ($skins_definitions as $skin_id=>$skin_definition) {
-      $skins[$skin_id] = $skin_definition['label'];
+
+    $skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
+    foreach ($skinManager->getDefinitions() as $id => $definition) {
+      $skins[$id] = $definition['label'];
     }
     
     asort($skins);
@@ -112,15 +114,17 @@ class Slideshow extends StylePluginBase {
       '#markup' => '<h2>' . t('Slides') . '</h2>',
     );
 
-    // Get all slideshow types.
-    $slideshows = \Drupal::moduleHandler()->invokeAll('views_slideshow_slideshow_info');
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
 
-    if ($slideshows) {
+    // Get all slideshow types.
+    $types = $typeManager->getDefinitions();
+
+    if ($types) {
 
       // Build our slideshow options for the form.
       $slideshow_options = array();
-      foreach ($slideshows as $slideshow_id => $slideshow_info) {
-        $slideshow_options[$slideshow_id] = $slideshow_info['name'];
+      foreach ($types as $id => $definition) {
+        $slideshow_options[$id] = $definition['label'];
       }
 
       $form['slideshow_type'] = array(
@@ -136,7 +140,9 @@ class Slideshow extends StylePluginBase {
         &$this,
       );
 
-      foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_slideshow_type_form') as $module) {
+      // @todo: Replace it by a call to all ConfigurationForm() from ViewsSlideshowType plugin instances.
+
+      /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_slideshow_type_form') as $module) {
         $form[$module] = array(
           '#type' => 'fieldset',
           '#title' => t('!module options', array('!module' => $slideshows[$module]['name'])),
@@ -151,7 +157,7 @@ class Slideshow extends StylePluginBase {
 
         $function = $module . '_views_slideshow_slideshow_type_form';
         call_user_func_array($function, $arguments);
-      }
+      }*/
     }
     else {
       $form['enable_module'] = array(
@@ -162,7 +168,7 @@ class Slideshow extends StylePluginBase {
     /**
      * Widgets
      */
-    $form['widgets_header'] = array(
+    /*$form['widgets_header'] = array(
       '#markup' => '<h2>' . t('Widgets') . '</h2>',
     );
 
@@ -278,7 +284,7 @@ class Slideshow extends StylePluginBase {
           );
         }
       }
-    }
+    }*/
 
     $form['views_slideshow_wrapper_close'] = array(
       '#markup' => '</div>',
@@ -298,10 +304,11 @@ class Slideshow extends StylePluginBase {
     );
 
     // Call all modules that use hook_views_slideshow_options_form_validate
-    foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_validate') as $module) {
+    // @todo: replace by validateConfigurationForm().
+    /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_validate') as $module) {
       $function = $module . '_views_slideshow_options_form_validate';
       call_user_func_array($function, $arguments);
-    }
+    }*/
   }
 
   /**
@@ -314,46 +321,11 @@ class Slideshow extends StylePluginBase {
     );
 
     // Call all modules that use hook_views_slideshow_options_form_submit
-    foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_submit') as $module) {
+    // @todo: replace by submitConfigurationForm().
+    /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_submit') as $module) {
       $function = $module . '_views_slideshow_options_form_submit';
       call_user_func_array($function, $arguments);
-    }
-
-    // In addition to the skin, we also pre-save the definition that
-    // correspond to it.  That lets us avoid a hook lookup on every page.
-    $skins = $this->getSkins();
-    $form_state->setValue(array('style_options', 'skin_info'), $skins[$form_state->getValue(array('style_options', 'slideshow_skin'))]);
-  }
-
-  /**
-   * Retrieve a list of all available skins in the system.
-   */
-  public function getSkins() {
-    static $skins;
-
-    if (empty($skins)) {
-      $skins = array();
-
-      // Call all modules that use hook_views_slideshow_skin_info.
-      foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_skin_info') as $module) {
-        $skin_items = call_user_func($module . '_views_slideshow_skin_info');
-        if (isset($skin_items) && is_array($skin_items)) {
-          foreach (array_keys($skin_items) as $skin) {
-            // Ensure that the definition is complete, so we don't need lots
-            // of error checking later.
-            $skin_items[$skin] += array(
-              'class' => 'default',
-              'name' => t('Untitled skin'),
-              'module' => $module,
-              'libraries' => array(),
-            );
-          }
-          $skins = array_merge($skins, $skin_items);
-        }
-      }
-    }
-
-    return $skins;
+    }*/
   }
 
 }
