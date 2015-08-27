@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\views_slideshow\Plugin\SlideshowSkin\DefaultSkin.
+ * Contains Drupal\views_slideshow\Plugin\SlideshowSkin\DefaultSkin.
  */
 
 namespace Drupal\views_slidehow\Plugin\SlideshowSkin;
