@@ -1,4 +1,4 @@
 services:
   plugin.manager.views_slideshow.slideshow_skin:
-    class: Drupal\views_slideshow\SlideshowSkinPluginManager
+    class: Drupal\views_slideshow\ViewsSlideshowSkinPluginManager
     parent: default_plugin_manager
