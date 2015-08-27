@@ -139,17 +139,6 @@ function views_slideshow_theme() {
 }
 
 /**
- * Implements hook_views_slideshow_skin_info().
- */
-function views_slideshow_views_slideshow_skin_info() {
-  return array(
-    'default' => array(
-      'name' => t('Default'),
-    ),
-  );
-}
-
-/**
  * Implements hook_views_slideshow_widget_info().
  */
 function views_slideshow_views_slideshow_widget_info() {
@@ -433,15 +422,6 @@ function views_slideshow_views_slideshow_widget_controls_info($view) {
 function views_slideshow_views_slideshow_option_definition() {
   // Default slideshow type and skins.
   $options['slideshow_type'] = array('default' => '');
-  $options['slideshow_skin'] = array('default' => '');
-  $options['skin_info'] = array(
-    'default' => array(
-      'class' => 'default',
-      'name' => t('Untitled skin'),
-      'module' => 'views_slideshow',
-      'libraries' => array(),
-    ),
-  );
 
   // Set default widgets and weight values.
   $widgets = \Drupal::moduleHandler()->invokeAll('views_slideshow_widget_info');
