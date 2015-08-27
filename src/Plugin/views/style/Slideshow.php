@@ -13,7 +13,7 @@ use Drupal\Core\Url;
 use Drupal\views_slideshow\SlideshowSkinPluginManager;
 
 /**
- * Style plugin to render each item in a grid cell.
+ * Style plugin to render each item in a slideshow.
  *
  * @ingroup views_style_plugins
  *
@@ -89,16 +89,11 @@ class Slideshow extends StylePluginBase {
 
     $skinsManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
     $skins_definitions = $skinsManager->getDefinitions();
-
-    /*$skins_definitions = $skinsManager->getDefinitions();*/
-
-    var_dump($skins_definitions);
-
-    // Get a list of all available skins.
-    $skin_info = $this->getSkins();
-    foreach ($skin_info as $skin => $info) {
-      $skins[$skin] = $info['name'];
+    $skins = [];
+    foreach ($skins_definitions as $skin_id=>$skin_definition) {
+      $skins[$skin_id] = $skin_definition['label'];
     }
+    
     asort($skins);
 
     // Create the drop down box so users can choose an available skin.

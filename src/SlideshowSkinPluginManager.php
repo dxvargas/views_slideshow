@@ -28,7 +28,7 @@ class SlideshowSkinPluginManager extends DefaultPluginManager {
    *   The module handler.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/SlideshowSkin', $namespaces, $module_handler, 'Drupal\views_slideshow\SlideshowSkinInterface');
+    parent::__construct('Plugin/SlideshowSkin', $namespaces, $module_handler, 'Drupal\views_slideshow\SlideshowSkinInterface', 'Drupal\views_slideshow\Annotation\SlideshowSkin');
 
     $this->alterInfo('views_slideshow_skin_info');
     $this->setCacheBackend($cache_backend, 'views_slideshow_skin');
