@@ -158,10 +158,6 @@ class Slideshow extends StylePluginBase {
             ),
           ),
         );
-        $form[$id]['instance'] = array(
-          '#type' => 'value',
-          '#value' => $instance
-      );
 
         $form = $instance->buildConfigurationForm($form, $form_state);
       }
@@ -307,9 +303,8 @@ class Slideshow extends StylePluginBase {
     // Validate all slideshow type plugins values.
     $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
     foreach ($typeManager->getDefinitions() as $id => $definition) {
-      if (!empty($form_state->getValue(array('style_options', $id, 'instance')))) {
-        $form_state->getValue(array('style_options', $id, 'instance'))->validateConfigurationForm($form, $form_state);
-      }
+      $type = $typeManager->createInstance($id);
+      $type->validateConfigurationForm($form, $form_state);
     }
   }
 
@@ -320,9 +315,8 @@ class Slideshow extends StylePluginBase {
     // Submit all slideshow type plugins values.
     $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
     foreach ($typeManager->getDefinitions() as $id => $definition) {
-      if (!empty($form_state->getValue(array('style_options', $id, 'instance')))) {
-        $form_state->getValue(array('style_options', $id, 'instance'))->submitConfigurationForm($form, $form_state);
-      }
+      $type = $typeManager->createInstance($id);
+      $type->submitConfigurationForm($form, $form_state);
     }
   }
 
