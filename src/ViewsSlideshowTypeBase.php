@@ -65,4 +65,10 @@ abstract class ViewsSlideshowTypeBase extends PluginBase implements ViewsSlidesh
   public function calculateDependencies() {
     return array();
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 }
