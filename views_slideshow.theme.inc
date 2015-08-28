@@ -24,11 +24,12 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
 
   if (empty($main_frame_module)) {
     // Get all slideshow types.
-    $slideshows = \Drupal::moduleHandler()->invokeAll('views_slideshow_slideshow_info');
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
+    $types = $typeManager->getDefinitions();
 
-    if ($slideshows) {
-      foreach ($slideshows as $slideshow_id => $slideshow_info) {
-        $main_frame_module = $slideshow_id;
+    if ($types) {
+      foreach ($types as $id => $definition) {
+        $main_frame_module = $id;
         break;
       }
     }
@@ -109,7 +110,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     // Process Widgets.
 
     // Build weights.
-    $weight = array();
+    /*$weight = array();
     for ($i = 1; $i <= count($widgets); $i++) {
       $weight['top'][$i] = '';
       $weight['bottom'][$i] = '';
@@ -145,7 +146,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
           }
         }
       }
-    }
+    }*/
 
     // Process Slideshow.
     $slides = array(
