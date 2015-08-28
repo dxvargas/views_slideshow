@@ -27,41 +27,37 @@ class Cycle extends ViewsSlideshowTypeBase {
    */
   public function defaultConfiguration() {
     return [
-      'views_slideshow_cycle' => [
-        'contains' => [
-          // Transition.
-          'effect' => ['default' => 'fade'],
-          'transition_advanced' => ['default' => 0],
-          'timeout' => ['default' => 5000],
-          'speed' => ['default' => 700],
-          'delay' => ['default' => 0],
-          'sync' => array('default' => 1),
-          'random' => array('default' => 0),
-          // Action.
-          'pause' => array('default' => 1),
-          'pause_on_click' => array('default' => 0),
-          'action_advanced' => array('default' => 0),
-          'start_paused' => array('default' => 0),
-          'remember_slide' => array('default' => 0),
-          'remember_slide_days' => array('default' => 1),
-          'pause_in_middle' => array('default' => 0),
-          'pause_when_hidden' => array('default' => 0),
-          'pause_when_hidden_type' => array('default' => 'full'),
-          'amount_allowed_visible' => array('default' => ''),
-          'nowrap' => array('default' => 0),
-          'fixed_height' => array('default' => 1),
-          'items_per_slide' => array('default' => 1),
-          'wait_for_image_load' => array('default' => 1),
-          'wait_for_image_load_timeout' => array('default' => 3000),
+      // Transition.
+      'effect' => ['default' => 'fade'],
+      'transition_advanced' => ['default' => 0],
+      'timeout' => ['default' => 5000],
+      'speed' => ['default' => 700],
+      'delay' => ['default' => 0],
+      'sync' => array('default' => 1),
+      'random' => array('default' => 0),
+      // Action.
+      'pause' => array('default' => 1),
+      'pause_on_click' => array('default' => 0),
+      'action_advanced' => array('default' => 0),
+      'start_paused' => array('default' => 0),
+      'remember_slide' => array('default' => 0),
+      'remember_slide_days' => array('default' => 1),
+      'pause_in_middle' => array('default' => 0),
+      'pause_when_hidden' => array('default' => 0),
+      'pause_when_hidden_type' => array('default' => 'full'),
+      'amount_allowed_visible' => array('default' => ''),
+      'nowrap' => array('default' => 0),
+      'fixed_height' => array('default' => 1),
+      'items_per_slide' => array('default' => 1),
+      'wait_for_image_load' => array('default' => 1),
+      'wait_for_image_load_timeout' => array('default' => 3000),
 
-          // Internet Explorer Tweaks.
-          'cleartype' => array('default' => 'true'),
-          'cleartypenobg' => array('default' => 'false'),
+      // Internet Explorer Tweaks.
+      'cleartype' => array('default' => 'true'),
+      'cleartypenobg' => array('default' => 'false'),
 
-          // Advanced.
-          'advanced_options' => array('default' => '{}'),
-        ]
-      ]
+      // Advanced.
+      'advanced_options' => array('default' => '{}'),
     ];
   }
 
@@ -71,13 +67,13 @@ class Cycle extends ViewsSlideshowTypeBase {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
     if (!isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
-      $form['no_cycle_js'] = array(
+      $form['views_slideshow_cycle']['no_cycle_js'] = array(
         '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries called jquery.cycle, and then copy jquery.cycle.all.min.js or jquery.cycle.all.js into it. You can find the plugin at !url.', array('!url' => \Drupal::l('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank'))))) . '</div>',
       );
     }
 
     // Transition.
-    $form['transition'] = array(
+    $form['views_slideshow_cycle']['transition'] = array(
       '#markup' => '<h2>' . t('Transition') . '</h2>',
     );
 
@@ -111,7 +107,7 @@ class Cycle extends ViewsSlideshowTypeBase {
       'wipe' => 'wipe',
       'zoom' => 'zoom',
     );
-    $form['effect'] = array(
+    $form['views_slideshow_cycle']['effect'] = array(
       '#type' => 'select',
       '#title' => t('Effect'),
       '#options' => $effects,
@@ -120,88 +116,88 @@ class Cycle extends ViewsSlideshowTypeBase {
     );
 
     // Transition advanced options.
-    $form['transition_advanced'] = array(
+    $form['views_slideshow_cycle']['transition_advanced'] = array(
       '#type' => 'checkbox',
       '#title' => t('View Transition Advanced Options'),
       '#default_value' => $this->getConfiguration()['transition_advanced'],
     );
 
     // Need to wrap this so it indents correctly.
-    $form['transition_advanced_wrapper'] = array(
+    $form['views_slideshow_cycle']['transition_advanced_wrapper'] = array(
       '#markup' => '<div class="vs-dependent">',
     );
 
-    $form['timeout'] = array(
+    $form['views_slideshow_cycle']['timeout'] = array(
       '#type' => 'textfield',
       '#title' => t('Timer delay'),
       '#default_value' => $this->getConfiguration()['timeout'],
       '#description' => t('Amount of time in milliseconds between transitions. Set the value to 0 to not rotate the slideshow automatically.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['speed'] = array(
+    $form['views_slideshow_cycle']['speed'] = array(
       '#type' => 'textfield',
       '#title' => t('Speed'),
       '#default_value' => $this->getConfiguration()['speed'],
       '#description' => t('Time in milliseconds that each transition lasts. Numeric only!'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['delay'] = array(
+    $form['views_slideshow_cycle']['delay'] = array(
       '#type' => 'textfield',
       '#title' => t('Initial slide delay offset'),
       '#default_value' => $this->getConfiguration()['delay'],
       '#description' => t('Amount of time in milliseconds for the first slide to transition. This number will be added to Timer delay to create the initial delay.  For example if Timer delay is 4000 and Initial delay is 2000 then the first slide will change at 6000ms (6 seconds).  If Initial delay is -2000 then the first slide will change at 2000ms (2 seconds).'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['sync'] = array(
+    $form['views_slideshow_cycle']['sync'] = array(
       '#type' => 'checkbox',
       '#title' => t('Sync'),
       '#default_value' => $this->getConfiguration()['sync'],
       '#description' => t('The sync option controls whether the slide transitions occur simultaneously. The default is selected which means that the current slide transitions out as the next slide transitions in. By unselecting this option you can get some interesting twists on your transitions.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['random'] = array(
+    $form['views_slideshow_cycle']['random'] = array(
       '#type' => 'checkbox',
       '#title' => t('Random'),
       '#description' => t('This option controls the order items are displayed. The default setting, unselected, uses the views ordering. Selected will cause the images to display in a random order.'),
       '#default_value' => $this->getConfiguration()['random'],
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
 
-    $form['transition_advanced_wrapper_close'] = array(
+    $form['views_slideshow_cycle']['transition_advanced_wrapper_close'] = array(
       '#markup' => '</div>',
     );
 
     // Action.
-    $form['action'] = array(
+    $form['views_slideshow_cycle']['action'] = array(
       '#markup' => '<h2>' . t('Action') . '</h2>',
     );
-    $form['pause'] = array(
+    $form['views_slideshow_cycle']['pause'] = array(
       '#type' => 'checkbox',
       '#title' => t('Pause on hover'),
       '#default_value' => $this->getConfiguration()['pause'],
       '#description' => t('Pause when hovering on the slideshow image.'),
     );
-    $form['pause_on_click'] = array(
+    $form['views_slideshow_cycle']['pause_on_click'] = array(
       '#type' => 'checkbox',
       '#title' => t('Pause On Click'),
       '#default_value' => $this->getConfiguration()['pause_on_click'],
@@ -209,40 +205,40 @@ class Cycle extends ViewsSlideshowTypeBase {
     );
 
     // Action Advanced Options.
-    $form['action_advanced'] = array(
+    $form['views_slideshow_cycle']['action_advanced'] = array(
       '#type' => 'checkbox',
       '#title' => t('View Action Advanced Options'),
       '#default_value' => $this->getConfiguration()['action_advanced'],
     );
 
     // Need to wrap this so it indents correctly.
-    $form['action_advanced_wrapper'] = array(
+    $form['views_slideshow_cycle']['action_advanced_wrapper'] = array(
       '#markup' => '<div class="vs-dependent">',
     );
 
-    $form['start_paused'] = array(
+    $form['views_slideshow_cycle']['start_paused'] = array(
       '#type' => 'checkbox',
       '#title' => t('Start Slideshow Paused'),
       '#default_value' => $this->getConfiguration()['start_paused'],
       '#description' => t('Start the slideshow in the paused state.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['remember_slide'] = array(
+    $form['views_slideshow_cycle']['remember_slide'] = array(
       '#type' => 'checkbox',
       '#title' => t('Start On Last Slide Viewed'),
       '#default_value' => $this->getConfiguration()['remember_slide'],
       '#description' => t('When the user leaves a page with a slideshow and comes back start them on the last slide viewed.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['remember_slide_days'] = array(
+    $form['views_slideshow_cycle']['remember_slide_days'] = array(
       '#type' => 'textfield',
       '#title' => t('Length of Time to Remember Last Slide'),
       '#default_value' => $this->getConfiguration()['remember_slide_days'],
@@ -252,8 +248,8 @@ class Cycle extends ViewsSlideshowTypeBase {
       '#size' => 4,
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
-          ':input[name="style_options[remember_slide]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][remember_slide]"]' => array('checked' => TRUE),
         ),
       ),
     );
@@ -261,31 +257,31 @@ class Cycle extends ViewsSlideshowTypeBase {
     // @todo Check if there is a better way to detect optional libraries.
     $pause = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_pause');
     if (isset($pause['js'][0]['data']) && file_exists($pause['js'][0]['data'])) {
-      $form['pause_in_middle'] = array(
+      $form['views_slideshow_cycle']['pause_in_middle'] = array(
         '#type' => 'checkbox',
         '#title' => t('Pause The Slideshow In The Middle of the Transition'),
         '#default_value' => $this->getConfiguration()['pause_in_middle'],
         '#description' => t('When pausing the slideshow allow it to pause in the middle of tranistioning and not finish the transition until unpaused.'),
         '#states' => array(
           'visible' => array(
-            ':input[name="style_options[transition_advanced]"]' => array('checked' => TRUE),
+            ':input[name="style_options[views_slideshow_cycle][transition_advanced]"]' => array('checked' => TRUE),
           ),
         ),
       );
     }
 
-    $form['pause_when_hidden'] = array(
+    $form['views_slideshow_cycle']['pause_when_hidden'] = array(
       '#type' => 'checkbox',
       '#title' => t('Pause When the Slideshow is Not Visible'),
       '#default_value' => $this->getConfiguration()['pause_when_hidden'],
       '#description' => t('When the slideshow is scrolled out of view or when a window is resized that hides the slideshow, this will pause the slideshow.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['pause_when_hidden_type'] = array(
+    $form['views_slideshow_cycle']['pause_when_hidden_type'] = array(
       '#type' => 'select',
       '#title' => t('How to Calculate Amount of Slide that Needs to be Shown'),
       '#options' => array(
@@ -300,42 +296,42 @@ class Cycle extends ViewsSlideshowTypeBase {
       '#suffix' => '</div>',
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
-          ':input[name="style_options[pause_when_hidden]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][pause_when_hidden]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['amount_allowed_visible'] = array(
+    $form['views_slideshow_cycle']['amount_allowed_visible'] = array(
       '#type' => 'textfield',
       '#title' => t('Amount of Slide Needed to be Shown'),
       '#default_value' => $this->getConfiguration()['amount_allowed_visible'],
       '#description' => t("The amount of the slide that needs to be shown to have it rotate. You can set the value in percentage (ex: 50%) or in pixels (ex: 250). The slidehsow will not rotate until it's height/width/total area, depending on the calculation method you have chosen above, is less than the value you have entered in this field."),
       '#size' => 4,
     );
-    $form['#attached']['library'][] = 'views_slideshow_cycle/formoptions';
-    $form['nowrap'] = array(
+    $form['views_slideshow_cycle']['#attached']['library'][] = 'views_slideshow_cycle/formoptions';
+    $form['views_slideshow_cycle']['nowrap'] = array(
       '#type' => 'checkbox',
       '#title' => t('End slideshow after last slide'),
       '#default_value' => $this->getConfiguration()['nowrap'],
       '#description' => t('If selected the slideshow will end when it gets to the last slide.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['fixed_height'] = array(
+    $form['views_slideshow_cycle']['fixed_height'] = array(
       '#type' => 'checkbox',
       '#title' => t('Make the slide window height fit the largest slide'),
       '#default_value' => $this->getConfiguration()['fixed_height'],
       '#description' => t('If unselected then if the slides are different sizes the height of the slide area will change as the slides change.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['items_per_slide'] = array(
+    $form['views_slideshow_cycle']['items_per_slide'] = array(
       '#type' => 'textfield',
       '#title' => t('Items per slide'),
       '#default_value' => $this->getConfiguration()['items_per_slide'],
@@ -343,22 +339,22 @@ class Cycle extends ViewsSlideshowTypeBase {
       '#size' => 4,
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['wait_for_image_load'] = array(
+    $form['views_slideshow_cycle']['wait_for_image_load'] = array(
       '#type' => 'checkbox',
       '#title' => t('Wait for all the slide images to load'),
       '#default_value' => $this->getConfiguration()['wait_for_image_load'],
       '#description' => t('If selected the slideshow will not start unless all the slide images are loaded.  This will fix some issues on IE7/IE8/Chrome/Opera.'),
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
         ),
       ),
     );
-    $form['wait_for_image_load_timeout'] = array(
+    $form['views_slideshow_cycle']['wait_for_image_load_timeout'] = array(
       '#type' => 'textfield',
       '#title' => t('Timeout'),
       '#default_value' => $this->getConfiguration()['wait_for_image_load_timeout'],
@@ -367,28 +363,28 @@ class Cycle extends ViewsSlideshowTypeBase {
       '#suffix' => '</div>',
       '#states' => array(
         'visible' => array(
-          ':input[name="style_options[action_advanced]"]' => array('checked' => TRUE),
-          ':input[name="style_options[wait_for_image_load]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][action_advanced]"]' => array('checked' => TRUE),
+          ':input[name="style_options[views_slideshow_cycle][wait_for_image_load]"]' => array('checked' => TRUE),
         ),
       ),
     );
 
     // Need to wrap this so it indents correctly.
-    $form['action_advanced_wrapper_close'] = array(
+    $form['views_slideshow_cycle']['action_advanced_wrapper_close'] = array(
       '#markup' => '</div>',
     );
 
     // Internet Explorer Tweaks.
-    $form['ie_tweaks'] = array(
+    $form['views_slideshow_cycle']['ie_tweaks'] = array(
       '#markup' => '<h2>' . t('Internet Explorer Tweaks') . '</h2>',
     );
-    $form['cleartype'] = array(
+    $form['views_slideshow_cycle']['cleartype'] = array(
       '#type' => 'checkbox',
       '#title' => t('ClearType'),
       '#default_value' => $this->getConfiguration()['cleartype'],
       '#description' => t('Select if clearType corrections should be applied (for IE).  Some background issues could be fixed by unselecting this option.'),
     );
-    $form['cleartypenobg'] = array(
+    $form['views_slideshow_cycle']['cleartypenobg'] = array(
       '#type' => 'checkbox',
       '#title' => t('ClearType Background'),
       '#default_value' => $this->getConfiguration()['cleartypenobg'],
@@ -396,7 +392,7 @@ class Cycle extends ViewsSlideshowTypeBase {
     );
 
     // Advanced Options.
-    $form['advanced_options_header'] = array(
+    $form['views_slideshow_cycle']['advanced_options_header'] = array(
       '#markup' => '<h2>' . t('jQuery Cycle Custom Options') . '</h2>',
     );
 
@@ -404,13 +400,13 @@ class Cycle extends ViewsSlideshowTypeBase {
     $json2 = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'json2');
     if (!isset($json2['js'][0]['data']) || !file_exists($json2['js'][0]['data'])) {
       // @todo Check if there is a better way to create this target _blank link.
-      $form['no_json_js'] = array(
+      $form['views_slideshow_cycle']['no_json_js'] = array(
         '#markup' => '<div>' . t('To use the advanced options you need to download json2.js. You can do this by clicking the download button at <a href="https://github.com/douglascrockford/JSON-js" target="_black">https://github.com/douglascrockford/JSON-js</a> and extract json2.js to libraries/json2') . '</div>',
       );
     }
     else {
       // @todo Check if there is a better way to create this target _blank link.
-      $form['advanced_options_info'] = array(
+      $form['views_slideshow_cycle']['advanced_options_info'] = array(
         '#markup' => '<p>' . t('You can find a list of all the available options at <a href="http://malsup.com/jquery/cycle/options.html" target="_blank">http://malsup.com/jquery/cycle/options.html</a>. If one of the options you add uses a function, example fxFn, then you need to only enter what goes inside the function call. The variables that are in the documentation on the jquery cycle site will be available to you.') . '</p>',
       );
 
@@ -478,25 +474,25 @@ class Cycle extends ViewsSlideshowTypeBase {
         'width' => 'width',
       );
 
-      $form['advanced_options_choices'] = array(
+      $form['views_slideshow_cycle']['advanced_options_choices'] = array(
         '#type' => 'select',
         '#title' => t('Advanced Options'),
         '#options' => $cycle_options,
       );
 
-      $form['advanced_options_entry'] = array(
+      $form['views_slideshow_cycle']['advanced_options_entry'] = array(
         '#type' => 'textarea',
         '#title' => t('Advanced Option Value'),
         '#description' => t('It is important that you click the Update link when you make any changes to the options or those changes will not be saved when you save the form.'),
       );
 
-      $form['advanced_options'] = array(
+      $form['views_slideshow_cycle']['advanced_options'] = array(
         '#type' => 'textarea',
         '#default_value' => $this->getConfiguration()['advanced_options'],
       );
 
       // @todo: Review how to create this table.
-      $form['advanced_options_table'] = array(
+      $form['views_slideshow_cycle']['advanced_options_table'] = array(
         '#markup' => '<table style="width: 400px; margin-left: 10px;" id="edit-style-options-views-slideshow-cycle-advanced-options-table"></table>',
       );
     }
@@ -508,14 +504,15 @@ class Cycle extends ViewsSlideshowTypeBase {
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    // @todo
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    // @todo
+    if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'timeout')))) {
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][timeout', t('!setting must be numeric!', array('!setting' => t('Timeout'))));
+    }
+    if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'speed')))) {
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][speed', t('!setting must be numeric!', array('!setting' => t('Speed'))));
+    }
+    if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'remember_slide_days')))) {
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][remember_slide_days', t('!setting must be numeric!', array('!setting' => t('Slide days'))));
+    }
   }
 
 }

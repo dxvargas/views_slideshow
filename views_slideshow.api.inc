@@ -42,31 +42,6 @@ function hook_views_slideshow_slideshow_info() {
 }
 
 /**
- * Define form fields to be displayed in the views settings form.
- * These fields would help configure your slideshow type.
- */
-function hook_views_slideshow_slideshow_type_form(&$form, &$form_state, &$view) {
-  $form['views_slideshow_cycle']['effect'] = array(
-    '#type' => 'select',
-    '#title' => t('Effect'),
-    '#options' => $effects,
-    '#default_value' => $view->options['views_slideshow_cycle']['effect'],
-    '#description' => t('The transition effect that will be used to change between images. Not all options below may be relevant depending on the effect. ' . l('Follow this link to see examples of each effect.', 'http://jquery.malsup.com/cycle/browser.html', array('attributes' => array('target' => '_blank')))),
-  );
-}
-
-/**
- * Define slideshow skins to be available to the end user.
- */
-function hook_views_slideshow_skin_info() {
-  return array(
-    'default' => array(
-      'name' => t('Default'),
-    ),
-  );
-}
-
-/**
  * Define new widgets (pagers, controls, counters).
  *
  * Available events for accepts and calls
@@ -173,28 +148,6 @@ function hook_views_slideshow_widget_controls_info($view) {
  * Hook called by the controls widget to add form items.
  */
 function INSERT_WIDGET_TYPE_HERE_views_slideshow_widget_controls_form_options(&$form, &$form_state, &$view, $defaults, $dependency) {
-}
-
-/**
- * Form validation callback for the slideshow settings.
- */
-function hook_views_slideshow_options_form_validate(&$form, &$form_state, &$view) {
-  if (!is_numeric($form_state['values']['style_options']['views_slideshow_cycle']['speed'])) {
-    form_error($form['views_slideshow_cycle']['speed'], t('!setting must be numeric!', array('Speed')));
-  }
-  if (!is_numeric($form_state['values']['style_options']['views_slideshow_cycle']['timeout'])) {
-    form_error($form['views_slideshow_cycle']['timeout'], t('!setting must be numeric!', array('timeout')));
-  }
-  if (!is_numeric($form_state['values']['style_options']['views_slideshow_cycle']['remember_slide_days'])) {
-    form_error($form['views_slideshow_cycle']['remember_slide_days'], t('!setting must be numeric!', array('Slide days')));
-  }
-}
-
-/**
- * Form submission callback for the slideshow settings.
- */
-function hook_views_slideshow_options_form_submit($form, &$form_state) {
-  // Act on option submission.
 }
 
 /**

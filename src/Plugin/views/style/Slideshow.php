@@ -66,7 +66,13 @@ class Slideshow extends StylePluginBase {
     $options['row_class_custom'] = array('default' => '');
     $options['row_class_default'] = array('default' => TRUE);
 
-    // @todo: Get all defaultConfiguration() from ViewsSlideshowType plugin instances.
+    // @todo: check if it really required as there is no differnce when this block is commented.
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
+    $types = $typeManager->getDefinitions();
+    foreach ($types as $id => $definition) {
+      $instance = $typeManager->createInstance($id, []);
+      $options[$id] = $instance->defaultConfiguration();
+    }
 
     return $options;
   }
@@ -114,9 +120,8 @@ class Slideshow extends StylePluginBase {
       '#markup' => '<h2>' . t('Slides') . '</h2>',
     );
 
-    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
-
     // Get all slideshow types.
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
     $types = $typeManager->getDefinitions();
 
     if ($types) {
@@ -134,30 +139,32 @@ class Slideshow extends StylePluginBase {
         '#default_value' => $this->options['slideshow_type'],
       );
 
-      $arguments = array(
-        &$form,
-        &$form_state,
-        &$this,
-      );
+      // @todo: check if default values are properly passed to the buildConfigurationForm().
+      foreach ($types as $id => $definition) {
+        $configuration = [];
+        if (!empty($this->options[$id])) {
+          $configuration = $this->options[$id];
+        }
+        $instance = $typeManager->createInstance($id, $configuration);
 
-      // @todo: Replace it by a call to all ConfigurationForm() from ViewsSlideshowType plugin instances.
-
-      /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_slideshow_type_form') as $module) {
-        $form[$module] = array(
+        $form[$id] = array(
           '#type' => 'fieldset',
-          '#title' => t('!module options', array('!module' => $slideshows[$module]['name'])),
+          '#title' => t('!module options', array('!module' => $definition['label'])),
           '#collapsible' => TRUE,
-          '#attributes' => array('class' => array($module)),
+          '#attributes' => array('class' => array($id)),
           '#states' => array(
             'visible' => array(
-              ':input[name="style_options[slideshow_type]"]' => array('value' => $module),
+              ':input[name="style_options[slideshow_type]"]' => array('value' => $id),
             ),
           ),
         );
+        $form[$id]['instance'] = array(
+          '#type' => 'value',
+          '#value' => $instance
+      );
 
-        $function = $module . '_views_slideshow_slideshow_type_form';
-        call_user_func_array($function, $arguments);
-      }*/
+        $form = $instance->buildConfigurationForm($form, $form_state);
+      }
     }
     else {
       $form['enable_module'] = array(
@@ -297,35 +304,26 @@ class Slideshow extends StylePluginBase {
    * {@inheritdoc}
    */
   public function validateOptionsForm(&$form, FormStateInterface $form_state) {
-    $arguments = array(
-      &$form,
-      &$form_state,
-      &$this,
-    );
-
-    // Call all modules that use hook_views_slideshow_options_form_validate
-    // @todo: replace by validateConfigurationForm().
-    /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_validate') as $module) {
-      $function = $module . '_views_slideshow_options_form_validate';
-      call_user_func_array($function, $arguments);
-    }*/
+    // Validate all slideshow type plugins values.
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
+    foreach ($typeManager->getDefinitions() as $id => $definition) {
+      if (!empty($form_state->getValue(array('style_options', $id, 'instance')))) {
+        $form_state->getValue(array('style_options', $id, 'instance'))->validateConfigurationForm($form, $form_state);
+      }
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {
-    $arguments = array(
-      $form,
-      &$form_state,
-    );
-
-    // Call all modules that use hook_views_slideshow_options_form_submit
-    // @todo: replace by submitConfigurationForm().
-    /*foreach (\Drupal::moduleHandler()->getImplementations('views_slideshow_options_form_submit') as $module) {
-      $function = $module . '_views_slideshow_options_form_submit';
-      call_user_func_array($function, $arguments);
-    }*/
+    // Submit all slideshow type plugins values.
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
+    foreach ($typeManager->getDefinitions() as $id => $definition) {
+      if (!empty($form_state->getValue(array('style_options', $id, 'instance')))) {
+        $form_state->getValue(array('style_options', $id, 'instance'))->submitConfigurationForm($form, $form_state);
+      }
+    }
   }
 
 }
