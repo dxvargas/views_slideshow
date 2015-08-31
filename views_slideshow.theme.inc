@@ -53,7 +53,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     $vss_id = $view->element['#name'] . '-' . $view->current_display;
 
     // Give each slideshow a unique id if there are more than one on the page.
-    static $instances = array();
+    static $instances = [];
     if (isset($instances[$vss_id])) {
       $instances[$vss_id]++;
       $vss_id .= "_" . $instances[$vss_id];
@@ -64,19 +64,19 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
 
     // Building our default methods.
     $methods = array(
-      'goToSlide' => array(),
-      'nextSlide' => array(),
-      'pause' => array(),
-      'play' => array(),
-      'previousSlide' => array(),
-      'transitionBegin' => array(),
-      'transitionEnd' => array(),
+      'goToSlide' => [],
+      'nextSlide' => [],
+      'pause' => [],
+      'play' => [],
+      'previousSlide' => [],
+      'transitionBegin' => [],
+      'transitionEnd' => [],
     );
 
     // Pull all widget info and slideshow info and merge them together.
     $widgets = \Drupal::moduleHandler()->invokeAll('views_slideshow_widget_info');
-    $slideshows = \Drupal::moduleHandler()->invokeAll('views_slideshow_slideshow_info');
-    $addons = array_merge($widgets, $slideshows);
+    $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
+    $addons = array_merge($widgets, $typeManager->getDefinitions());
 
     // Loop through all the addons and call their methods if needed.
     foreach ($addons as $addon_id => $addon_info) {
@@ -96,21 +96,20 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
       'paused' => 0,
     );
 
-    // Process Skins
-    // @todo: Understand why the class is not loaded.
-    /*$skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
+    // Process Skins.
+    $skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
     $skin = $skinManager->createInstance($options['slideshow_skin']);
 
     $vars['skin'] = $skin->getClass();
 
     foreach ($skin->getLibraries() as $library) {
       $vars['#attached']['library'][] = $library;
-    }*/
+    }
 
     // Process Widgets.
 
     // Build weights.
-    /*$weight = array();
+    /*$weight = [];
     for ($i = 1; $i <= count($widgets); $i++) {
       $weight['top'][$i] = '';
       $weight['bottom'][$i] = '';

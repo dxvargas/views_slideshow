@@ -4,7 +4,7 @@
  * Contains Drupal\views_slideshow\Plugin\ViewsSlideshowSkin\DefaultSkin.
  */
 
-namespace Drupal\views_slidehow\Plugin\ViewsSlideshowSkin;
+namespace Drupal\views_slideshow\Plugin\ViewsSlideshowSkin;
 
 use Drupal\views_slideshow\ViewsSlideshowSkinBase;
 
