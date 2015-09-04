@@ -39,9 +39,8 @@ class PagerFields extends ViewsSlideshowWidgetBase {
     $options = array();
 
     // Get each field and it's name.
-    // @todo: Review how the label is created to use the adminLabel set in Views.
-    foreach ($this->getConfiguration()['view']->getHandlers('field') as $field_name => $field) {
-      $options[$field_name] = $field['field'];
+    foreach ($this->getConfiguration()['view']->display_handler->getHandlers('field') as $field_name => $field) {
+      $options[$field_name] = $field->adminLabel();
     }
 
     // Need to wrap this so it indents correctly.
