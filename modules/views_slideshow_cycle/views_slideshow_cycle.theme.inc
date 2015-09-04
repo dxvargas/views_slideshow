@@ -215,7 +215,7 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
     foreach ($vars['view']->result as $count => $node) {
       if ($count < $slide_count) {
         $rendered_fields = '';
-        foreach ($vars['settings']['views_slideshow_pager_fields_fields'] as $field => $use) {
+        foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
           if ($use !== 0 && is_object($vars['view']->field[$field])) {
             $rendered_fields[] = array(
               '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
