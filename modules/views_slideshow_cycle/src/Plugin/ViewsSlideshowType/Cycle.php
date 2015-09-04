@@ -27,37 +27,39 @@ class Cycle extends ViewsSlideshowTypeBase {
    */
   public function defaultConfiguration() {
     return [
-      // Transition.
-      'effect' => ['default' => 'fade'],
-      'transition_advanced' => ['default' => 0],
-      'timeout' => ['default' => 5000],
-      'speed' => ['default' => 700],
-      'delay' => ['default' => 0],
-      'sync' => array('default' => 1),
-      'random' => array('default' => 0),
-      // Action.
-      'pause' => array('default' => 1),
-      'pause_on_click' => array('default' => 0),
-      'action_advanced' => array('default' => 0),
-      'start_paused' => array('default' => 0),
-      'remember_slide' => array('default' => 0),
-      'remember_slide_days' => array('default' => 1),
-      'pause_in_middle' => array('default' => 0),
-      'pause_when_hidden' => array('default' => 0),
-      'pause_when_hidden_type' => array('default' => 'full'),
-      'amount_allowed_visible' => array('default' => ''),
-      'nowrap' => array('default' => 0),
-      'fixed_height' => array('default' => 1),
-      'items_per_slide' => array('default' => 1),
-      'wait_for_image_load' => array('default' => 1),
-      'wait_for_image_load_timeout' => array('default' => 3000),
+      'contains' => [
+        // Transition.
+        'effect' => ['default' => 'fade'],
+        'transition_advanced' => ['default' => 0],
+        'timeout' => ['default' => 5000],
+        'speed' => ['default' => 700],
+        'delay' => ['default' => 0],
+        'sync' => array('default' => 1),
+        'random' => array('default' => 0),
+        // Action.
+        'pause' => array('default' => 1),
+        'pause_on_click' => array('default' => 0),
+        'action_advanced' => array('default' => 0),
+        'start_paused' => array('default' => 0),
+        'remember_slide' => array('default' => 0),
+        'remember_slide_days' => array('default' => 1),
+        'pause_in_middle' => array('default' => 0),
+        'pause_when_hidden' => array('default' => 0),
+        'pause_when_hidden_type' => array('default' => 'full'),
+        'amount_allowed_visible' => array('default' => ''),
+        'nowrap' => array('default' => 0),
+        'fixed_height' => array('default' => 1),
+        'items_per_slide' => array('default' => 1),
+        'wait_for_image_load' => array('default' => 1),
+        'wait_for_image_load_timeout' => array('default' => 3000),
 
-      // Internet Explorer Tweaks.
-      'cleartype' => array('default' => 'true'),
-      'cleartypenobg' => array('default' => 'false'),
+        // Internet Explorer Tweaks.
+        'cleartype' => array('default' => 'true'),
+        'cleartypenobg' => array('default' => 'false'),
 
-      // Advanced.
-      'advanced_options' => array('default' => '{}'),
+        // Advanced.
+        'advanced_options' => array('default' => '{}'),
+      ],
     ];
   }
 
