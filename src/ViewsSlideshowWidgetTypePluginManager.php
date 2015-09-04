@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains Drupal\views_slideshow\ViewsSlideshowTypePluginManager.
+ * Contains Drupal\views_slideshow\ViewsSlideshowWidgetTypePluginManager.
  */
 
 namespace Drupal\views_slideshow;
@@ -11,12 +11,12 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Class ViewsSlideshowTypePluginManager
+ * Class ViewsSlideshowWidgetTypePluginManager
  * @package Drupal\views_slideshow
  */
-class ViewsSlideshowTypePluginManager extends DefaultPluginManager {
+class ViewsSlideshowWidgetTypePluginManager extends DefaultPluginManager {
   /**
-   * Constructs a new ViewsSlideshowTypePluginManager.
+   * Constructs a new ViewsSlideshowWidgetTypePluginManager.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -27,8 +27,9 @@ class ViewsSlideshowTypePluginManager extends DefaultPluginManager {
    *   The module handler.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/ViewsSlideshowType', $namespaces, $module_handler, 'Drupal\views_slideshow\ViewsSlideshowTypeInterface', 'Drupal\views_slideshow\Annotation\ViewsSlideshowType');
-    $this->alterInfo('views_slideshow_type_info');
-    $this->setCacheBackend($cache_backend, 'views_slideshow_type');
+    parent::__construct('Plugin/ViewsSlideshowWidgetType', $namespaces, $module_handler, 'Drupal\views_slideshow\ViewsSlideshowWidgetTypeInterface', 'Drupal\views_slideshow\Annotation\ViewsSlideshowWidgetType');
+    $this->alterInfo('views_slideshow_widget_type_info');
+    $this->setCacheBackend($cache_backend, 'views_slideshow_widget_type');
   }
+
 }

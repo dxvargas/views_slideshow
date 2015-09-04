@@ -10,7 +10,6 @@ namespace Drupal\views_slideshow\Plugin\views\style;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 use Drupal\Core\Url;
-use Drupal\views_slideshow\ViewsSlideshowSkinPluginManager;
 
 /**
  * Style plugin to render each item in a slideshow.
@@ -65,13 +64,23 @@ class Slideshow extends StylePluginBase {
     $options = parent::defineOptions();
     $options['row_class_custom'] = array('default' => '');
     $options['row_class_default'] = array('default' => TRUE);
+    $options['slideshow_type'] = array('default' => '');
+    $options['slideshow_skin'] = array('default' => '');
 
-    // @todo: check if it really required as there is no differnce when this block is commented.
+    // @todo: get defaultConfiguration for skins.
+
     $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
-    $types = $typeManager->getDefinitions();
-    foreach ($types as $id => $definition) {
+    foreach ($typeManager->getDefinitions() as $id => $definition) {
       $instance = $typeManager->createInstance($id, []);
       $options[$id] = $instance->defaultConfiguration();
+    }
+
+    $widgetTypeManager = \Drupal::service('plugin.manager.views_slideshow.widget_type');
+    $widgetTypes = $widgetTypeManager->getDefinitions();
+    foreach (array('top', 'bottom') as $location) {
+      foreach ($widgetTypes as $widgetTypeId => $widgetTypeDefinition) {
+        $options['widgets']['contains'][$location]['contains'][$widgetTypeId]['contains'] = $widgetTypeManager->createInstance($widgetTypeId, [])->defaultConfiguration();
+      }
     }
 
     return $options;
@@ -88,20 +97,19 @@ class Slideshow extends StylePluginBase {
       '#markup' => '<div id="views-slideshow-form-wrapper">',
     );
 
-    /**
-     * Style.
-     */
+    // Skins.
     $form['slideshow_skin_header'] = array(
       '#markup' => '<h2>' . t('Style') . '</h2>',
     );
 
-    $skins = [];
-
+    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
     $skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
+
+    // Get all skins to create the option list.
+    $skins = [];
     foreach ($skinManager->getDefinitions() as $id => $definition) {
       $skins[$id] = $definition['label'];
     }
-    
     asort($skins);
 
     // Create the drop down box so users can choose an available skin.
@@ -113,9 +121,7 @@ class Slideshow extends StylePluginBase {
       '#description' => t('Select the skin to use for this display.  Skins allow for easily swappable layouts of things like next/prev links and thumbnails.  Note that not all skins support all widgets, so a combination of skins and widgets may lead to unpredictable results in layout.'),
     );
 
-    /**
-     * Slides
-     */
+    // Slides.
     $form['slides_header'] = array(
       '#markup' => '<h2>' . t('Slides') . '</h2>',
     );
@@ -168,29 +174,31 @@ class Slideshow extends StylePluginBase {
       );
     }
 
-    /**
-     * Widgets
-     */
-    /*$form['widgets_header'] = array(
+    // Widgets.
+    // @todo: Improve the UX by using Ajax.
+    $form['widgets_header'] = array(
       '#markup' => '<h2>' . t('Widgets') . '</h2>',
     );
 
-    // Loop through all locations so we can add header for each location.
+    // Define the available locations.
     $location = array('top' => t('Top'), 'bottom' => t('Bottom'));
+
+    // Loop through all locations so we can add header for each location.
     foreach ($location as $location_id => $location_name) {
-      // Widget Header
       $form['widgets'][$location_id]['header'] = array(
         '#markup' => '<h3>' . t('!location Widgets', array('!location' => $location_name)) . '</h3>',
       );
     }
 
-    // Get all widgets that are registered.
-    // If we have widgets then build it's form fields.
-    $widgets = \Drupal::moduleHandler()->invokeAll('views_slideshow_widget_info');
+    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
+    $widgetTypeManager = \Drupal::service('plugin.manager.views_slideshow.widget_type');
+
+    // Get all widgets types that are registered.
+    $widgets = $widgetTypeManager->getDefinitions();
     if (!empty($widgets)) {
 
       // Build our weight values by number of widgets
-      $weights = array();
+      $weights = [];
       for ($i = 1; $i <= count($widgets); $i++) {
         $weights[$i] = $i;
       }
@@ -198,102 +206,102 @@ class Slideshow extends StylePluginBase {
       // Loop through our widgets and locations to build our form values for
       // each widget.
       foreach ($widgets as $widget_id => $widget_info) {
-        foreach ($location as $location_id => $location_name) {
-          $widget_dependency = 'style_options[widgets][' . $location_id . '][' . $widget_id . ']';
 
-          // Determine if a widget is compatible with a slideshow.
-          $compatible_slideshows = array();
-          foreach ($slideshows as $slideshow_id => $slideshow_info) {
-            $is_compatible = 1;
-            // Check if every required accept value in the widget has a
-            // corresponding calls value in the slideshow.
-            foreach($widget_info['accepts'] as $accept_key => $accept_value) {
-              if (is_array($accept_value) && !empty($accept_value['required']) && !in_array($accept_key, $slideshow_info['calls'])) {
-                $is_compatible = 0;
-                break;
-              }
-            }
-
-            // No need to go through this if it's not compatible.
-            if ($is_compatible) {
-              // Check if every required calls value in the widget has a
-              // corresponding accepts call.
-              foreach($widget_info['calls'] as $calls_key => $calls_value) {
-                if (is_array($calls_value) && !empty($calls_value['required']) && !in_array($calls_key, $slideshow_info['accepts'])) {
-                  $is_compatible = 0;
-                  break;
-                }
-              }
-            }
-
-            // If it passed all those tests then they are compatible.
-            if ($is_compatible) {
-              $compatible_slideshows[] = $slideshow_id;
-            }
+        // Determine if this widget type is compatible with any slideshow type.
+        $compatible_slideshows = [];
+        foreach ($types as $slideshow_id => $slideshow_info) {
+          if ($widgetTypeManager->createInstance($widget_id, [])->checkCompatiblity($slideshow_info)) {
+            $compatible_slideshows[] = $slideshow_id;
           }
+        }
 
-          // Use Widget Checkbox
-          $form['widgets'][$location_id][$widget_id]['enable'] = array(
-            '#type' => 'checkbox',
-            '#title' => t($widget_info['name']),
-            '#default_value' => $this->options['widgets'][$location_id][$widget_id]['enable'],
-            '#description' => t('Should !name be rendered at the !location of the slides.', array('!name' => $widget_info['name'], '!location' => $location_name)),
-          );
-
-          $form['widgets'][$location_id][$widget_id]['enable']['#dependency']['edit-style-options-slideshow-type'] = !empty($compatible_slideshows) ? $compatible_slideshows : array('none');
-
-          // Need to wrap this so it indents correctly.
-          $form['widgets'][$location_id][$widget_id]['wrapper'] = array(
-            '#markup' => '<div class="vs-dependent">',
-          );
-
-          // Widget weight
-          // We check to see if the default value is greater than the number of
-          // widgets just in case a widget has been removed and the form hasn't
-          // been saved again.
-          $weight = (isset($this->options['widgets'][$location_id][$widget_id]['weight'])) ? $this->options['widgets'][$location_id][$widget_id]['weight'] : 0;
-          if ($weight > count($widgets)) {
-            $weight = count($widgets);
-          }
-          $form['widgets'][$location_id][$widget_id]['weight'] = array(
-            '#type' => 'select',
-            '#title' => t('Weight of the !name', array('!name' => $widget_info['name'])),
-            '#default_value' => $weight,
-            '#options' => $weights,
-            '#description' => t('Determines in what order the !name appears.  A lower weight will cause the !name to be above higher weight items.', array('!name' => $widget_info['name'])),
-            '#prefix' => '<div class="vs-dependent">',
-            '#suffix' => '</div>',
-            '#states' => array(
-              'visible' => array(
-                ':input[name="style_options[widgets][' . $location_id . '][' . $widget_id . '][enable]"]' => array('checked' => TRUE),
+        // Display the widget config form only if the widget type is compatible
+        // with at least one slideshow type.
+        if (!empty($compatible_slideshows)) {
+          foreach ($location as $location_id => $location_name) {
+            // Use Widget Checkbox.
+            $form['widgets'][$location_id][$widget_id]['enable'] = array(
+              '#type' => 'checkbox',
+              '#title' => t($widget_info['label']),
+              '#default_value' => $this->options['widgets'][$location_id][$widget_id]['enable'],
+              '#description' => t('Should !name be rendered at the !location of the slides.', array('!name' => $widget_info['label'], '!location' => $location_name)),
+              '#dependency' => array(
+                'edit-style-options-slideshow-type' => $compatible_slideshows,
               ),
-            ),
-          );
-
-          // Add all the widget settings.
-          if (function_exists($widget_id . '_views_slideshow_widget_form_options')) {
-            $arguments = array(
-              &$form['widgets'][$location_id][$widget_id],
-              &$form_state,
-              &$this,
-              $this->options['widgets'][$location_id][$widget_id],
-              $widget_dependency,
             );
-            call_user_func_array($widget_id . '_views_slideshow_widget_form_options', $arguments);
-          }
 
-          $form['widgets'][$location_id][$widget_id]['wrapper_close'] = array(
-            '#markup' => '</div>',
-          );
+            // Need to wrap this so it indents correctly.
+            $form['widgets'][$location_id][$widget_id]['wrapper'] = [
+              '#markup' => '<div class="vs-dependent">',
+            ];
+
+            // Widget weight.
+            // We check to see if the default value is greater than the number
+            // of widgets just in case a widget has been removed and the form
+            // hasn't been saved again.
+            $weight = (isset($this->options['widgets'][$location_id][$widget_id]['weight'])) ? $this->options['widgets'][$location_id][$widget_id]['weight'] : 0;
+            if ($weight > count($widgets)) {
+              $weight = count($widgets);
+            }
+            $form['widgets'][$location_id][$widget_id]['weight'] = [
+              '#type' => 'select',
+              '#title' => t('Weight of the !name', ['!name' => $widget_info['label']]),
+              '#default_value' => $weight,
+              '#options' => $weights,
+              '#description' => t('Determines in what order the !name appears.  A lower weight will cause the !name to be above higher weight items.', ['!name' => $widget_info['label']]),
+              '#prefix' => '<div class="vs-dependent">',
+              '#suffix' => '</div>',
+              '#states' => [
+                'visible' => [
+                  ':input[name="style_options[widgets][' . $location_id . '][' . $widget_id . '][enable]"]' => ['checked' => TRUE],
+                ],
+              ],
+            ];
+
+            // Build the appropriate array for the states API.
+            $widget_dependency = 'style_options[widgets][' . $location_id . '][' . $widget_id . ']';
+
+            // Get the current configuration of this widget type.
+            $configuration = [];
+            if (!empty($this->options['widgets'][$location_id][$widget_id])) {
+              $configuration = $this->options['widgets'][$location_id][$widget_id];
+            }
+            $configuration['dependency'] = $widget_dependency;
+            $instance = $widgetTypeManager->createInstance($widget_id, $configuration);
+
+            // Get the configuration form of this widget type.
+            $form['widgets'][$location_id][$widget_id] = $instance->buildConfigurationForm($form['widgets'][$location_id][$widget_id], $form_state);
+
+            // Close the vs-dependent wrapper.
+            $form['widgets'][$location_id][$widget_id]['wrapper_close'] = [
+              '#markup' => '</div>',
+            ];
+          }
         }
       }
-    }*/
+    }
 
-    $form['views_slideshow_wrapper_close'] = array(
+
+    // Browse locations and remove the header if no widget is available.
+    foreach ($location as $location_id => $location_name) {
+      // If no widget is available, the only key is "header".
+      if (count(array_keys($form['widgets'][$location_id])) == 1) {
+        unset($form['widgets'][$location_id]);
+      }
+    }
+
+    // Remove the widget section header if there is no widget available.
+    if (empty($form['widgets'])) {
+      unset($form['widgets']);
+      unset($form['widgets_header']);
+    }
+
+    $form['views_slideshow_wrapper_close'] = [
       '#markup' => '</div>',
-    );
+    ];
 
-    $form['#attached']['library'] = array('views_slideshow/form');
+    // Add a library to style the form.
+    $form['#attached']['library'] = ['views_slideshow/form'];
   }
 
   /**
