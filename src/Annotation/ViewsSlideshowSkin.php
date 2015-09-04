@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\views_slideshow\Annotation\SlideshowSkin.
+ * Contains Drupal\views_slideshow\Annotation\ViewsSlideshowSkin.
  */
 
 namespace Drupal\views_slideshow\Annotation;
@@ -14,7 +14,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * @Annotation
  */
-class SlideshowSkin extends Plugin {
+class ViewsSlideshowSkin extends Plugin {
 
   /**
    * The plugin ID.

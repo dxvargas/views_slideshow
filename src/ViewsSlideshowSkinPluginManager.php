@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains Drupal\views_slideshow\SlideshowSkinPluginManager.
+ * Contains Drupal\views_slideshow\ViewsSlideshowSkinPluginManager.
  */
 
 namespace Drupal\views_slideshow;
@@ -11,13 +11,13 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Class SlideshowSkinPluginManager
+ * Class ViewsSlideshowSkinPluginManager
  * @package Drupal\views_slidehsow
  */
-class SlideshowSkinPluginManager extends DefaultPluginManager {
+class ViewsSlideshowSkinPluginManager extends DefaultPluginManager {
 
   /**
-   * Constructs a new SlideshowSkinPluginManager.
+   * Constructs a new ViewsSlideshowSkinPluginManager.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -28,7 +28,7 @@ class SlideshowSkinPluginManager extends DefaultPluginManager {
    *   The module handler.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/SlideshowSkin', $namespaces, $module_handler, 'Drupal\views_slideshow\SlideshowSkinInterface', 'Drupal\views_slideshow\Annotation\SlideshowSkin');
+    parent::__construct('Plugin/ViewsSlideshowSkin', $namespaces, $module_handler, 'Drupal\views_slideshow\ViewsSlideshowSkinInterface', 'Drupal\views_slideshow\Annotation\ViewsSlideshowSkin');
 
     $this->alterInfo('views_slideshow_skin_info');
     $this->setCacheBackend($cache_backend, 'views_slideshow_skin');

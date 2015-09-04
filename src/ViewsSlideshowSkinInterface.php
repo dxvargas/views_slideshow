@@ -1,16 +1,16 @@
 <?php
 /**
  * @file
- * Contains Drupal\views_slideshow\SlideshowSkinInterface.
+ * Contains Drupal\views_slideshow\ViewsSlideshowSkinInterface.
  */
 
 namespace Drupal\views_slideshow;
 
 /**
- * Interface SlideshowSkinInterface
+ * Interface ViewsSlideshowSkinInterface
  * @package Drupal\views_slideshow
  */
-interface SlideshowSkinInterface {
+interface ViewsSlideshowSkinInterface {
 
   /**
    * Returns a array of libraries to attach when the skin is used.

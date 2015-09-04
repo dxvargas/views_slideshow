@@ -1,14 +1,14 @@
 <?php
 /**
  * @file
- * Provides Drupal\views_slideshow\SlideshowSkinBase.
+ * Provides Drupal\views_slideshow\ViewsSlideshowSkinBase.
  */
 
 namespace Drupal\views_slideshow;
 
 use Drupal\Component\Plugin\PluginBase;
 
-abstract class SlideshowSkinBase extends PluginBase implements SlideshowSkinInterface {
+abstract class ViewsSlideshowSkinBase extends PluginBase implements ViewsSlideshowSkinInterface {
 
   /**
    * {@inheritdoc}
