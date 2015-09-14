@@ -139,24 +139,6 @@ function views_slideshow_theme() {
 }
 
 /**
- * Preg_replace_callback callback().
- *
- * @see views_slideshow_format_addons_name()
- */
-function _views_slideshow_get_preg_strtoupper_callback($matches) {
-  if (isset($matches[1])) {
-    return strtoupper($matches[1]);
-  }
-}
-
-/**
- * Php5.x preg_replace_callback() method.
- */
-function views_slideshow_format_addons_name($subject) {
-  return preg_replace_callback('/_(.?)/', '_views_slideshow_get_preg_strtoupper_callback', $subject);
-}
-
-/**
  * Views Slideshow: Slideshow.
  *
  * As it is a preprocess function, store it with other functions in theme.inc.
