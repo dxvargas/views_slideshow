@@ -28,6 +28,6 @@ abstract class ViewsSlideshowSkinBase extends PluginBase implements ViewsSlidesh
    * {@inheritdoc}
    */
   public function getLibraries() {
-    return array();
+    return $this->pluginDefinition['libraries'];;
   }
 }

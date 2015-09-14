@@ -32,4 +32,11 @@ class ViewsSlideshowSkin extends Plugin {
    */
   public $label;
 
+  /**
+   * A list of libraries this slideshow skin needs to attach.
+   *
+   * @var string[]
+   */
+  public $libraries;
+
 }
