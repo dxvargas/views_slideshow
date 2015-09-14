@@ -328,15 +328,4 @@ class Slideshow extends StylePluginBase {
     }
   }
 
-  /**
-   * Format callback to move from underscore separated words to camelCase.
-   */
-  public function formatAddonName($subject) {
-    return preg_replace_callback('/_(.?)/', function($matches) {
-      if (isset($matches[1])) {
-        return strtoupper($matches[1]);
-      }
-    }, $subject);
-  }
-
 }

@@ -14,3 +14,6 @@ services:
   plugin.manager.views_slideshow.widget:
     class: Drupal\views_slideshow\ViewsSlideshowWidgetPluginManager
     parent: default_plugin_manager
+
+  views_slideshow.format_addons_name:
+      class: Drupal\views_slideshow\FormatAddonsName
