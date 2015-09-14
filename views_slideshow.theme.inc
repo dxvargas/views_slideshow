@@ -86,10 +86,10 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     foreach ($addons as $addon_id => $addon_info) {
       foreach ($addon_info['accepts'] as $imp_key => $imp_value) {
         if (is_array($imp_value)) {
-          $methods[$imp_key][] = views_slideshow_format_addons_name($addon_id);
+          $methods[$imp_key][] = \Drupal::service('plugin.manager.views_slideshow.slideshow_type')->formatAddonName($addon_id);
         }
         else {
-          $methods[$imp_value][] = views_slideshow_format_addons_name($addon_id);
+          $methods[$imp_value][] = \Drupal::service('plugin.manager.views_slideshow.slideshow_type')->formatAddonName($addon_id);
         }
       }
     }
@@ -183,7 +183,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPager'][$vars['vss_id']] = array(
     $vars['location'] => array(
-      'type' => views_slideshow_format_addons_name($vars['settings']['type']),
+      'type' => \Drupal::service('plugin.manager.views_slideshow.slideshow_type')->formatAddonName($vars['settings']['type']),
     ),
   );
 
@@ -284,7 +284,7 @@ function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowControls'][$vars['vss_id']] = array(
     $vars['location'] => array(
-      'type' => views_slideshow_format_addons_name($vars['settings']['type']),
+      'type' => \Drupal::service('plugin.manager.views_slideshow.slideshow_type')->formatAddonName($vars['settings']['type']),
     ),
   );
 

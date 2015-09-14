@@ -14,7 +14,8 @@ use Drupal\views_slideshow\ViewsSlideshowSkinBase;
  *
  * @ViewsSlideshowSkin(
  *   id = "default",
- *   label = @Translation("Default")
+ *   label = @Translation("Default"),
+ *   libraries = {}
  * )
  */
 class DefaultSkin extends ViewsSlideshowSkinBase {}
