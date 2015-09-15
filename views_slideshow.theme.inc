@@ -216,12 +216,8 @@ function template_preprocess_views_slideshow_pager_fields(&$vars) {
   );
 
   // Add hover intent library.
-  // @todo Check if there is a better way to detect optional libraries.
   if ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_hover']) {
-    $hoverIntent = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow', 'jquery_hoverIntent');
-    if (isset($hoverIntent['js'][0]['data']) && file_exists($hoverIntent['js'][0]['data'])) {
-      $vars['#attached']['library'][] = 'views_slideshow/jquery_hoverIntent';
-    }
+    $vars['#attached']['library'][] = 'views_slideshow/jquery_hoverIntent';
   }
 
   $vars['widget_id'] = $vars['attributes']['id'];
