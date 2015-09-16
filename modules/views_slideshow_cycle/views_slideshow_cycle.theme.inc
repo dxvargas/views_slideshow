@@ -94,35 +94,14 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // Add the slideshow elements.
   $vars['attributes']['class'][] = 'views_slideshow_cycle_teaser_section';
 
-  $styles = '';
-  if (isset($view->display_handler->display->display_options['style_options']['views_slideshow_cycle'])) {
-    $styles = $view->display_handler->display->display_options['style_options']['views_slideshow_cycle'];
-  }
-
-  $styles_default = '';
-  if (isset($view->display['default']->display_options['style_options']['views_slideshow_cycle'])) {
-    $styles_default = $view->display['default']->display_options['style_options']['views_slideshow_cycle'];
-  }
-
-  // Retrieve the number of items per frame.
-  if (isset($styles['items_per_slide']) && $styles['items_per_slide'] > 0) {
-    $items_per_slide = $styles['items_per_slide'];
-  }
-  elseif (isset($styles_default['items_per_slide']) && $styles_default['items_per_slide'] > 0) {
-    $items_per_slide = $styles_default['items_per_slide'];
-  }
-  else {
-    $items_per_slide = 1;
-  }
-
-  $vars['items_per_slide'] = $items_per_slide;
+  $vars['items_per_slide'] = $settings['items_per_slide'];
 
   $items = array();
   $index = 0;
   $vars['rendered_rows'] = '';
   foreach ($rows as $count => $item) {
     $items[] = $item;
-    if (count($items) == $items_per_slide || $count == (count($rows) - 1)) {
+    if (count($items) == $settings['items_per_slide'] || $count == (count($rows) - 1)) {
       $vars['rendered_rows'][] = array(
         '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_cycle_main_frame_row'),
         '#vss_id' => $vss_id,

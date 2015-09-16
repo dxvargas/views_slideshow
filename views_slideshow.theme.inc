@@ -50,6 +50,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     $view = $vars['view'];
     $rows = $vars['rows'];
     $num_divs = count($rows);
+    // @todo: This #name element is not available of Views edit page.
     $vss_id = $view->element['#name'] . '-' . $view->current_display;
 
     // Give each slideshow a unique id if there are more than one on the page.
@@ -227,7 +228,7 @@ function template_preprocess_views_slideshow_pager_fields(&$vars) {
   // Render all the fields unless there is only 1 slide and the user specified
   // to hide them when there is only one slide.
   $vars['rendered_field_items'] = '';
-  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['view']->result) > $vars['view']->style_options['views_slideshow_cycle']['items_per_slide']) {
+  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['view']->result) > $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide']) {
     foreach ($vars['view']->result as $count => $node) {
       $rendered_fields = '';
       foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
