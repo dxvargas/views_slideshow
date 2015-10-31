@@ -222,7 +222,7 @@ class Slideshow extends StylePluginBase {
             // Use Widget Checkbox.
             $form['widgets'][$location_id][$widget_id]['enable'] = array(
               '#type' => 'checkbox',
-              '#title' => t($widget_info['label']),
+              '#title' => $widget_info['label'],
               '#default_value' => $this->options['widgets'][$location_id][$widget_id]['enable'],
               '#description' => t('Should !name be rendered at the !location of the slides.', array('!name' => $widget_info['label'], '!location' => $location_name)),
               '#dependency' => array(
