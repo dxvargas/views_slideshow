@@ -8,6 +8,7 @@
 namespace Drupal\views_slideshow_cycle\Plugin\ViewsSlideshowType;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\views_slideshow\ViewsSlideshowTypeBase;
 
 /**
