@@ -90,6 +90,7 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
         $instance = $widgetManager->createInstance($widget_id, $configuration);
 
         // Get the configuration form of this widget type.
+        $form[$widget_id] = isset($form[$widget_id]) ? $form[$widget_id] : [];
         $form[$widget_id] = $instance->buildConfigurationForm($form[$widget_id], $form_state);
       }
 

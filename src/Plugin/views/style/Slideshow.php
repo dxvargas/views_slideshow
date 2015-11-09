@@ -155,7 +155,7 @@ class Slideshow extends StylePluginBase {
 
         $form[$id] = array(
           '#type' => 'fieldset',
-          '#title' => t('!module options', array('!module' => $definition['label'])),
+          '#title' => t('@module options', array('@module' => $definition['label'])),
           '#collapsible' => TRUE,
           '#attributes' => array('class' => array($id)),
           '#states' => array(
@@ -170,7 +170,7 @@ class Slideshow extends StylePluginBase {
     }
     else {
       $form['enable_module'] = array(
-        '#markup' => t('There is no Views Slideshow plugin enabled. Go to the !modules and enable a Views Slideshow plugin module. For example Views Slideshow Singleframe.', array('!modules' => \Drupal::l(t('Modules Page'), Url::fromRoute('system.modules_list')))),
+        '#markup' => t('There is no Views Slideshow plugin enabled. Go to the @modules and enable a Views Slideshow plugin module. For example Views Slideshow Singleframe.', array('@modules' => \Drupal::l(t('Modules Page'), Url::fromRoute('system.modules_list')))),
       );
     }
 
@@ -186,7 +186,7 @@ class Slideshow extends StylePluginBase {
     // Loop through all locations so we can add header for each location.
     foreach ($location as $location_id => $location_name) {
       $form['widgets'][$location_id]['header'] = array(
-        '#markup' => '<h3>' . t('!location Widgets', array('!location' => $location_name)) . '</h3>',
+        '#markup' => '<h3>' . t('@location Widgets', array('@location' => $location_name)) . '</h3>',
       );
     }
 
@@ -224,7 +224,7 @@ class Slideshow extends StylePluginBase {
               '#type' => 'checkbox',
               '#title' => $widget_info['label'],
               '#default_value' => $this->options['widgets'][$location_id][$widget_id]['enable'],
-              '#description' => t('Should !name be rendered at the !location of the slides.', array('!name' => $widget_info['label'], '!location' => $location_name)),
+              '#description' => t('Should @name be rendered at the @location of the slides.', array('@name' => $widget_info['label'], '@location' => $location_name)),
               '#dependency' => array(
                 'edit-style-options-slideshow-type' => $compatible_slideshows,
               ),
@@ -245,10 +245,10 @@ class Slideshow extends StylePluginBase {
             }
             $form['widgets'][$location_id][$widget_id]['weight'] = [
               '#type' => 'select',
-              '#title' => t('Weight of the !name', ['!name' => $widget_info['label']]),
+              '#title' => t('Weight of the @name', ['@name' => $widget_info['label']]),
               '#default_value' => $weight,
               '#options' => $weights,
-              '#description' => t('Determines in what order the !name appears.  A lower weight will cause the !name to be above higher weight items.', ['!name' => $widget_info['label']]),
+              '#description' => t('Determines in what order the @name appears. A lower weight will cause the @name to be above higher weight items.', ['@name' => $widget_info['label']]),
               '#prefix' => '<div class="vs-dependent">',
               '#suffix' => '</div>',
               '#states' => [

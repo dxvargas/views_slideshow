@@ -43,7 +43,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
       . 'For example, 3.x needs a module like "Views Slideshow: Cycle" enabled.'), 'error');
   }
   elseif (empty($options[$main_frame_module])) {
-    drupal_set_message(t('The options for !module does not exists.', array('!module' => $main_frame_module)), 'error');
+    drupal_set_message(t('The options for @module does not exists.', array('@module' => $main_frame_module)), 'error');
   }
   elseif (!empty($vars['rows'])) {
     $settings = $options[$main_frame_module];
