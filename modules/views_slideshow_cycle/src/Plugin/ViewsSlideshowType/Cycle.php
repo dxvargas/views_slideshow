@@ -71,7 +71,7 @@ class Cycle extends ViewsSlideshowTypeBase {
     $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
     if (!isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
       $form['views_slideshow_cycle']['no_cycle_js'] = array(
-        '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries called jquery.cycle, and then copy jquery.cycle.all.min.js or jquery.cycle.all.js into it. You can find the plugin at @url.', array('@url' => \Drupal::l('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank'))))) . '</div>',
+        '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries (which should be in your Drupal root folder, if not create the same) called jquery.cycle, and then copy jquery.cycle.all.min.js or jquery.cycle.all.js into it. You can find the plugin at @url.', array('@url' => \Drupal::l('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank'))))) . '</div>',
       );
     }
 
