@@ -64,10 +64,8 @@ class Slideshow extends StylePluginBase {
     $options = parent::defineOptions();
     $options['row_class_custom'] = array('default' => '');
     $options['row_class_default'] = array('default' => TRUE);
-    $options['slideshow_type'] = array('default' => '');
-    $options['slideshow_skin'] = array('default' => '');
-
-    // @todo: get defaultConfiguration for skins.
+    $options['slideshow_type'] = array('default' => 'views_slideshow_cycle');
+    $options['slideshow_skin'] = array('default' => 'default');
 
     $typeManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_type');
     foreach ($typeManager->getDefinitions() as $id => $definition) {
