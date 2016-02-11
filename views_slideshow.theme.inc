@@ -8,8 +8,6 @@
  */
 
 use Drupal\Component\Utility\Html;
-use Drupal\views_slideshow\ViewsSlideshowSkinPluginManager;
-use Drupal\views_slideshow\ViewsSlideshowSkinInterface;
 
 /**
  * Views Slideshow: slideshow.
