@@ -27,4 +27,5 @@ class ViewsSlideshowTypePluginManager extends DefaultPluginManager {
     $this->alterInfo('views_slideshow_type_info');
     $this->setCacheBackend($cache_backend, 'views_slideshow_type');
   }
+
 }

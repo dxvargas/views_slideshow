@@ -40,4 +40,5 @@ class ViewsSlideshowType extends Plugin {
    * @var string[]
    */
   public $calls;
+
 }

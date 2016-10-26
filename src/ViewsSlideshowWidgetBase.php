@@ -81,4 +81,5 @@ abstract class ViewsSlideshowWidgetBase extends PluginBase implements ViewsSlide
   public function checkCompatiblity($view) {
     return TRUE;
   }
+
 }

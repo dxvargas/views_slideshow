@@ -40,4 +40,5 @@ class ViewsSlideshowWidgetType extends Plugin {
    * @var array
    */
   public $calls;
+
 }

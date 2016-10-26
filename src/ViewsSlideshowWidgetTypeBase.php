@@ -106,4 +106,5 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
 
     return $is_compatible;
   }
+
 }

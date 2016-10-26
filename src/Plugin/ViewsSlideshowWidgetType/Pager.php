@@ -120,4 +120,5 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
 
     return $form;
   }
+
 }

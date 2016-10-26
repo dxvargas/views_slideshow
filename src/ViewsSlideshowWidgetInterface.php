@@ -13,4 +13,5 @@ interface ViewsSlideshowWidgetInterface extends PluginInspectionInterface, Confi
    * @return bool
    */
   public function checkCompatiblity($view);
+
 }

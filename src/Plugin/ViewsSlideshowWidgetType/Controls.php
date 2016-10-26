@@ -101,4 +101,5 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
 
     return $form;
   }
+
 }

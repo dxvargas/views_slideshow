@@ -33,4 +33,5 @@ class ViewsSlideshowWidget extends Plugin {
    * @var string
    */
   public $type;
+
 }

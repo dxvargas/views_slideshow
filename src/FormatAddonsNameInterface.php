@@ -12,4 +12,5 @@ interface FormatAddonsNameInterface {
    * Format callback manipulate addons names.
    */
   public function format($subject);
+
 }

@@ -85,4 +85,5 @@ class PagerFields extends ViewsSlideshowWidgetBase {
   public function checkCompatiblity($view) {
     return $view->getStyle()->usesFields();
   }
+
 }
