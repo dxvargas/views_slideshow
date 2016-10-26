@@ -19,7 +19,9 @@ INSTALLATION
   * Install as you would normally install a contributed Drupal module. See the
   <a href='http://drupal.org/documentation/install/modules-themes/modules-8'>
   Drupal 8 instructions</a> if required in the Drupal documentation for further
-  information.
+  information. Note there are two modules included in this project; "Views
+  Slideshow" & "Views SLideshow Cycle". In most cases you will need/want to
+  enable both of them.
 
   * You will also need to download some JavaScript libraries. You can do this
   semi-automatically via drush using `drush dl-cycle-lib` or if prefered,
