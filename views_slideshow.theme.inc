@@ -47,8 +47,10 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     $settings = $options[$main_frame_module];
     $view = $vars['view'];
     $rows = $vars['rows'];
-    // @todo: This #name element is not available of Views edit page.
-    $vss_id = $view->element['#name'] . '-' . $view->current_display;
+
+    // The #name element is not available on Views edit pages.
+    $view_element_name = (isset($view->element['#name'])) ? $view->element['#name'] : '';
+    $vss_id = $view_element_name . '-' . $view->current_display;
 
     // Give each slideshow a unique id if there are more than one on the page.
     static $instances = [];
