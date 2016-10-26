@@ -4,6 +4,9 @@ namespace Drupal\views_slideshow;
 
 use Drupal\Component\Plugin\PluginBase;
 
+/**
+ * Provides basic functionality for Views slideshow skins.
+ */
 abstract class ViewsSlideshowSkinBase extends PluginBase implements ViewsSlideshowSkinInterface {
 
   /**

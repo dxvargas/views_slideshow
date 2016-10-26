@@ -96,7 +96,7 @@ class Slideshow extends StylePluginBase {
       '#markup' => '<h2>' . t('Style') . '</h2>',
     );
 
-    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
+    /* @var \Drupal\Component\Plugin\PluginManagerInterface */
     $skinManager = \Drupal::service('plugin.manager.views_slideshow.slideshow_skin');
 
     // Get all skins to create the option list.
@@ -184,14 +184,14 @@ class Slideshow extends StylePluginBase {
       );
     }
 
-    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
+    /* @var \Drupal\Component\Plugin\PluginManagerInterface */
     $widgetTypeManager = \Drupal::service('plugin.manager.views_slideshow.widget_type');
 
     // Get all widgets types that are registered.
     $widgets = $widgetTypeManager->getDefinitions();
     if (!empty($widgets)) {
 
-      // Build our weight values by number of widgets
+      // Build our weight values by number of widgets.
       $weights = [];
       for ($i = 1; $i <= count($widgets); $i++) {
         $weights[$i] = $i;

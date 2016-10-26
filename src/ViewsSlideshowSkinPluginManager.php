@@ -7,8 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Class ViewsSlideshowSkinPluginManager
- * @package Drupal\views_slidehsow
+ * Manager for Views Slideshow Skin plugins.
  */
 class ViewsSlideshowSkinPluginManager extends DefaultPluginManager {
 

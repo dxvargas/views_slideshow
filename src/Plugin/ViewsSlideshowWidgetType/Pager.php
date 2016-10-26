@@ -30,7 +30,7 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
       'views_slideshow_pager_thumbnails_click_to_page' => array('default' => 0),
     ];
 
-    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
+    /* @var \Drupal\Component\Plugin\PluginManagerInterface */
     $widgetManager = \Drupal::service('plugin.manager.views_slideshow.widget');
 
     // Get default configuration of all Pager plugins.
@@ -47,7 +47,7 @@ class Pager extends ViewsSlideshowWidgetTypeBase {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $view = $form_state->get('view')->get('executable');
 
-    /** @var \Drupal\Component\Plugin\PluginManagerInterface */
+    /* @var \Drupal\Component\Plugin\PluginManagerInterface */
     $widgetManager = \Drupal::service('plugin.manager.views_slideshow.widget');
 
     // Determine if this widget type is compatible with any slideshow type.

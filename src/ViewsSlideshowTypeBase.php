@@ -6,6 +6,9 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
+/**
+ * Provides basic functionality for Views slideshow types.
+ */
 abstract class ViewsSlideshowTypeBase extends PluginBase implements ViewsSlideshowTypeInterface {
   use StringTranslationTrait;
 

@@ -109,7 +109,6 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     }
 
     // Process Widgets.
-
     // Build weights.
     $weight = [];
     for ($i = 1; $i <= count($widgetTypes); $i++) {
