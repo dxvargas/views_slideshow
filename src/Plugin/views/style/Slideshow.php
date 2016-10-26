@@ -164,7 +164,7 @@ class Slideshow extends StylePluginBase {
     }
     else {
       $form['enable_module'] = array(
-        '#markup' => t('There is no Views Slideshow plugin enabled. Go to the @modules and enable a Views Slideshow plugin module. For example Views Slideshow Singleframe.', array('@modules' => Link::fromTextAndUrl(t('Modules Page'), Url::fromRoute('system.modules_list')))),
+        '#markup' => t('There is no Views Slideshow plugin enabled. Go to the @modules and enable a Views Slideshow plugin module. For example Views Slideshow Singleframe.', array('@modules' => Link::fromTextAndUrl(t('Modules Page'), Url::fromRoute('system.modules_list'))->toString())),
       );
     }
 
