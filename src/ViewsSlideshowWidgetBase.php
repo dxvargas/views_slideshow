@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Provides Drupal\views_slideshow\ViewsSlideshowWidgetBase.
- */
-
 namespace Drupal\views_slideshow;
 
 use Drupal\Component\Plugin\PluginBase;

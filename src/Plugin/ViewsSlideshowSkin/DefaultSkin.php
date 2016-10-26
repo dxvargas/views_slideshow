@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\views_slideshow\Plugin\ViewsSlideshowSkin\DefaultSkin.
- */
 
 namespace Drupal\views_slideshow\Plugin\ViewsSlideshowSkin;
 

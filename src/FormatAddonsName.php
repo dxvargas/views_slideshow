@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views_slideshow\FormatAddonsName.
- */
-
 namespace Drupal\views_slideshow;
 
 

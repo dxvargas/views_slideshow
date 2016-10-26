@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_slideshow\ViewsSlideshowWidgetType\Counter.
- */
-
 namespace Drupal\views_slideshow\Plugin\ViewsSlideshowWidgetType;
 
 use Drupal\views_slideshow\ViewsSlideshowWidgetTypeBase;

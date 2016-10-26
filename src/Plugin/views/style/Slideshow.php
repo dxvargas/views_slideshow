@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views_slideshow\Plugin\views\style\Slideshow.
- */
-
 namespace Drupal\views_slideshow\Plugin\views\style;
 
 use Drupal\Core\Form\FormStateInterface;

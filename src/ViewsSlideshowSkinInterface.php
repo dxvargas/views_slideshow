@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\views_slideshow\ViewsSlideshowSkinInterface.
- */
 
 namespace Drupal\views_slideshow;
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\views_slideshow\ViewsSlideshowWidgetTypePluginManager.
- */
 
 namespace Drupal\views_slideshow;
 

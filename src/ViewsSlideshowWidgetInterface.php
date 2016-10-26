@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Provides Drupal\views_slideshow\ViewsSlideshowWidgetInterface.
- */
 
 namespace Drupal\views_slideshow;
 

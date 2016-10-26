@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_slideshow\ViewsSlideshowWidget\PagerFields.
- */
-
 namespace Drupal\views_slideshow\Plugin\ViewsSlideshowWidget;
 
 use Drupal\Core\Form\FormStateInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_slideshow\Annotation\ViewsSlideshowWidget.
- */
-
 namespace Drupal\views_slideshow\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

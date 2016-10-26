@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_slideshow_cycle\ViewsSlideshowType\Cycle.
- */
-
 namespace Drupal\views_slideshow_cycle\Plugin\ViewsSlideshowType;
 
 use Drupal\Core\Form\FormStateInterface;
