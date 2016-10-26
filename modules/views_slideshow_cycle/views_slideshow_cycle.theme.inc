@@ -16,7 +16,6 @@ use Drupal\Core\Asset;
 function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $settings = $vars['settings'];
   $rows = $vars['rows'];
-  $view = $vars['view'];
   $vss_id = $vars['vss_id'];
 
   // Cast the strings into int or bool as necessary.

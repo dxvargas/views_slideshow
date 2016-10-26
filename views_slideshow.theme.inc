@@ -47,7 +47,6 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     $settings = $options[$main_frame_module];
     $view = $vars['view'];
     $rows = $vars['rows'];
-    $num_divs = count($rows);
     // @todo: This #name element is not available of Views edit page.
     $vss_id = $view->element['#name'] . '-' . $view->current_display;
 
