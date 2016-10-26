@@ -47,8 +47,8 @@ class Controls extends ViewsSlideshowWidgetTypeBase {
         '#markup' => '<div class="vs-dependent">',
       );
 
-      // Add field to see if they would like to hide controls if there is only one
-      // slide.
+      // Add field to see if they would like to hide controls if there is only
+      // one slide.
       $form['hide_on_single_slide'] = array(
         '#type' => 'checkbox',
         '#title' => t('Hide controls if there is only one slide'),

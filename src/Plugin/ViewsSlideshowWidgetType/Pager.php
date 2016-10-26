@@ -11,7 +11,12 @@ use Drupal\views_slideshow\ViewsSlideshowWidgetTypeBase;
  * @ViewsSlideshowWidgetType(
  *   id = "views_slideshow_pager",
  *   label = @Translation("Pager"),
- *   accepts = {"transitionBegin" = {"required" = TRUE}, "goToSlide", "previousSlide", "nextSlide"},
+ *   accepts = {
+ *     "transitionBegin" = {"required" = TRUE},
+ *     "goToSlide",
+ *     "previousSlide",
+ *     "nextSlide"
+ *   },
  *   calls = {"goToSlide", "pause", "play"}
  * )
  */

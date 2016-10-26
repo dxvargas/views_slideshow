@@ -13,8 +13,22 @@ use Drupal\Core\Link;
  * @ViewsSlideshowType(
  *   id = "views_slideshow_cycle",
  *   label = @Translation("Cycle"),
- *   accepts = {"goToSlide", "nextSlide", "pause", "play", "previousSlide"},
- *   calls = {"transitionBegin", "transitionEnd", "goToSlide", "pause", "play", "nextSlide", "previousSlide"}
+ *   accepts = {
+ *     "goToSlide",
+ *     "nextSlide",
+ *     "pause",
+ *     "play",
+ *     "previousSlide"
+ *   },
+ *   calls = {
+ *     "transitionBegin",
+ *     "transitionEnd",
+ *     "goToSlide",
+ *     "pause",
+ *     "play",
+ *     "nextSlide",
+ *     "previousSlide"
+ *   }
  * )
  */
 class Cycle extends ViewsSlideshowTypeBase {
@@ -67,7 +81,12 @@ class Cycle extends ViewsSlideshowTypeBase {
     $cycle = \Drupal::service('library.discovery')->getLibraryByName('views_slideshow_cycle', 'jquery_cycle');
     if (!isset($cycle['js'][0]['data']) || !file_exists($cycle['js'][0]['data'])) {
       $form['views_slideshow_cycle']['no_cycle_js'] = array(
-        '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries (which should be in your Drupal root folder, if not create the same) called jquery.cycle, and then copy jquery.cycle.all.js into it. You can find the plugin at @url.', array('@url' => Link::fromTextAndUrl('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array('attributes' => array('target' => '_blank')))->toString())) . '</div>',
+        '#markup' => '<div style="color: red">' . t('You need to install the jQuery cycle plugin. Create a directory in libraries (which should be in your Drupal root folder, if not create the same) called jquery.cycle, and then copy jquery.cycle.all.js into it. You can find the plugin at @url.',
+          array(
+            '@url' => Link::fromTextAndUrl('http://malsup.com/jquery/cycle', Url::FromUri('http://malsup.com/jquery/cycle'), array(
+              'attributes' => array('target' => '_blank'),
+            ))->toString(),
+          )) . '</div>',
       );
     }
 
@@ -504,13 +523,19 @@ class Cycle extends ViewsSlideshowTypeBase {
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'timeout')))) {
-      $form_state->setErrorByName('style_options][views_slideshow_cycle][timeout', t('!setting must be numeric!', array('!setting' => t('Timeout'))));
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][timeout', t('!setting must be numeric!',
+        array('!setting' => t('Timeout'))
+      ));
     }
     if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'speed')))) {
-      $form_state->setErrorByName('style_options][views_slideshow_cycle][speed', t('!setting must be numeric!', array('!setting' => t('Speed'))));
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][speed', t('!setting must be numeric!',
+        array('!setting' => t('Speed'))
+      ));
     }
     if (!is_numeric($form_state->getValue(array('style_options', 'views_slideshow_cycle', 'remember_slide_days')))) {
-      $form_state->setErrorByName('style_options][views_slideshow_cycle][remember_slide_days', t('!setting must be numeric!', array('!setting' => t('Slide days'))));
+      $form_state->setErrorByName('style_options][views_slideshow_cycle][remember_slide_days', t('!setting must be numeric!',
+        array('!setting' => t('Slide days'))
+      ));
     }
   }
 

@@ -88,7 +88,7 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
     $is_compatible = 1;
     // Check if every required accept value in the widget has a
     // corresponding calls value in the slideshow.
-    foreach($this->pluginDefinition['accepts'] as $accept_key => $accept_value) {
+    foreach ($this->pluginDefinition['accepts'] as $accept_key => $accept_value) {
       if (is_array($accept_value) && !empty($accept_value['required']) && !in_array($accept_key, $slideshow['calls'])) {
         $is_compatible = 0;
         break;
@@ -99,7 +99,7 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
     if ($is_compatible) {
       // Check if every required calls value in the widget has a
       // corresponding accepts call.
-      foreach($this->pluginDefinition['calls'] as $calls_key => $calls_value) {
+      foreach ($this->pluginDefinition['calls'] as $calls_key => $calls_value) {
         if (is_array($calls_value) && !empty($calls_value['required']) && !in_array($calls_key, $slideshow['accepts'])) {
           $is_compatible = 0;
           break;
