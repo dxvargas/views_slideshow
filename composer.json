@@ -15,13 +15,13 @@
     "irc": "irc://irc.freenode.org/drupal-contribute",
     "source": "https://cgit.drupalcode.org/views_slideshow"
   },
-	"repositories": {
+  "require": {
+		"heykarthikwithu/cycle": "*"
+	},
+	"repositories": [
 	  {
 	    "url": "https://github.com/heykarthikwithu/cycle.git",
 	    "type": "git"
 	  }
-	},
-  "require": {
-		"heykarthikwithu/cycle": "*"
-	}
+	]
 }
