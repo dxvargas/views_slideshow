@@ -17,11 +17,11 @@
   },
 	"repositories": {
 	  {
-	    "url": "https://github.com/heykarthikwithu/cycle.git",
+	    "url": "https://github.com/heykarthikwithu/cycle",
 	    "type": "git"
 	  }
 	},
   "require": {
-		"heykarthikwithu/cycle": "*"
+		"heykarthikwithu/cycle": "1.1"
 	}
 }
