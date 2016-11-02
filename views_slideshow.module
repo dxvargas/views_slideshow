@@ -17,7 +17,6 @@ function views_slideshow_theme() {
         'plugin' => NULL,
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_main_section__',
     ],
     'views_slideshow_pager_widget_render' => [
       'variables' => [
@@ -28,7 +27,6 @@ function views_slideshow_theme() {
         'rows' => [],
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_pager_widget_render__',
       'function' => 'template_preprocess_views_slideshow_pager_widget_render',
     ],
     'views_slideshow_pager_fields' => [
@@ -40,7 +38,6 @@ function views_slideshow_theme() {
         'attributes' => [],
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_pager_fields__',
     ],
     'views_slideshow_pager_field_field' => [
       'variables' => [
@@ -50,7 +47,6 @@ function views_slideshow_theme() {
         'output' => NULL,
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_pager_field_field__',
     ],
     'views_slideshow_pager_field_item' => [
       'variables' => [
@@ -60,7 +56,6 @@ function views_slideshow_theme() {
         'location' => NULL,
         'length' => NULL,
       ],
-      //'pattern' => 'views_slideshow_pager_field_item__',
     ],
     'views_slideshow_controls_widget_render' => [
       'variables' => [
@@ -71,7 +66,6 @@ function views_slideshow_theme() {
         'rows' => [],
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_controls_widget_render__',
       'function' => 'template_preprocess_views_slideshow_controls_widget_render',
     ],
     'views_slideshow_controls_text' => [
@@ -82,7 +76,6 @@ function views_slideshow_theme() {
         'location' => NULL,
         'rows' => [],
       ],
-      //'pattern' => 'views_slideshow_controls_text__',
       'file' => 'views_slideshow.theme.inc',
     ],
     'views_slideshow_controls_text_previous' => [
@@ -91,7 +84,6 @@ function views_slideshow_theme() {
         'view' => NULL,
         'settings' => [],
       ],
-      //'pattern' => 'views_slideshow_controls_text_previous__',
       'file' => 'views_slideshow.theme.inc',
     ],
     'views_slideshow_controls_text_pause' => [
@@ -100,7 +92,6 @@ function views_slideshow_theme() {
         'view' => NULL,
         'settings' => [],
       ],
-      //'pattern' => 'views_slideshow_controls_text_pause__',
       'file' => 'views_slideshow.theme.inc',
     ],
     'views_slideshow_controls_text_next' => [
@@ -109,7 +100,6 @@ function views_slideshow_theme() {
         'view' => NULL,
         'settings' => [],
       ],
-      //'pattern' => 'views_slideshow_controls_text_next__',
       'file' => 'views_slideshow.theme.inc',
     ],
     'views_slideshow_slide_counter_widget_render' => [
@@ -121,7 +111,6 @@ function views_slideshow_theme() {
         'rows' => [],
       ],
       'file' => 'views_slideshow.theme.inc',
-      //'pattern' => 'views_slideshow_counter_widget_render__',
       'function' => 'template_preprocess_views_slideshow_slide_counter_widget_render',
     ],
     'views_slideshow_slide_counter' => [
@@ -132,7 +121,6 @@ function views_slideshow_theme() {
         'location' => NULL,
         'rows' => [],
       ],
-      //'pattern' => 'views_slideshow_slide_counter__',
       'file' => 'views_slideshow.theme.inc',
     ],
   ];
