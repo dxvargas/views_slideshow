@@ -473,7 +473,7 @@
       // If it gets here it's because it's an invalid action.
       default:
         status.value = false;
-        status.text = Drupal.t('An invalid action "!action" was specified.', {"!action": options.action});
+        status.text = Drupal.t('An invalid action "@action" was specified.', {"@action": options.action});
     }
     return status;
   };
