@@ -21,9 +21,9 @@ class ViewsSlideshowType extends Plugin {
   /**
    * The human-readable name of the slideshow type.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $label;
 

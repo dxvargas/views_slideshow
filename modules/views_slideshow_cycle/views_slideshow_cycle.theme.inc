@@ -6,7 +6,6 @@
  */
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Asset;
 
 /**
  * Views Slideshow: Theme the main frame wrapper.

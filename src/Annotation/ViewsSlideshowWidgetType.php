@@ -21,9 +21,9 @@ class ViewsSlideshowWidgetType extends Plugin {
   /**
    * The human-readable name of the widget type.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $label;
 

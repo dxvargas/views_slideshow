@@ -10,6 +10,7 @@ use Drupal\Core\Plugin\DefaultPluginManager;
  * Manager for Views Slideshow Type plugins.
  */
 class ViewsSlideshowTypePluginManager extends DefaultPluginManager {
+
   /**
    * Constructs a new ViewsSlideshowTypePluginManager.
    *

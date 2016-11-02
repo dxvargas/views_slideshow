@@ -275,7 +275,6 @@ class Slideshow extends StylePluginBase {
       }
     }
 
-
     // Browse locations and remove the header if no widget is available.
     foreach ($location as $location_id => $location_name) {
       // If no widget is available, the only key is "header".
