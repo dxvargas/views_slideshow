@@ -273,7 +273,7 @@ function template_preprocess_views_slideshow_pager_field_item(&$vars) {
 /**
  * Views Slideshow: Controls.
  *
- * @inggroup themeable
+ * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
   // Add javascript settings for the controls type.
@@ -362,7 +362,7 @@ function template_preprocess_views_slideshow_controls_text_next(&$vars) {
 /**
  * Views Slideshow: Slide Counter.
  *
- * @inggroup themeable
+ * @ingroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars) {
   $slide = [
@@ -380,7 +380,7 @@ function template_preprocess_views_slideshow_slide_counter_widget_render(&$vars)
 /**
  * Views Slideshow: slide counter.
  *
- * @inggroup themeable
+ * @ingroup themeable
  */
 function template_preprocess_views_slideshow_slide_counter(&$vars) {
   $vars['attributes']['class'][] = 'views_slideshow_slide_counter';
