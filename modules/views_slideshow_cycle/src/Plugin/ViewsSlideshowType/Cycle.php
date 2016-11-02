@@ -522,17 +522,18 @@ class Cycle extends ViewsSlideshowTypeBase {
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    if (!is_numeric($form_state->getValue(['style_options', 'views_slideshow_cycle', 'timeout']))) {
+    $values = $form_state->getValue(['style_options', 'views_slideshow_cycle']);
+    if (!is_numeric($values['timeout'])) {
       $form_state->setErrorByName('style_options][views_slideshow_cycle][timeout', t('@setting must be numeric!',
         ['@setting' => t('Timeout')]
       ));
     }
-    if (!is_numeric($form_state->getValue(['style_options', 'views_slideshow_cycle', 'speed']))) {
+    if (!is_numeric($values['speed'])) {
       $form_state->setErrorByName('style_options][views_slideshow_cycle][speed', t('@setting must be numeric!',
         ['@setting' => t('Speed')]
       ));
     }
-    if (!is_numeric($form_state->getValue(['style_options', 'views_slideshow_cycle', 'remember_slide_days']))) {
+    if (!is_numeric($values['remember_slide_days'])) {
       $form_state->setErrorByName('style_options][views_slideshow_cycle][remember_slide_days', t('@setting must be numeric!',
         ['@setting' => t('Slide days')]
       ));
