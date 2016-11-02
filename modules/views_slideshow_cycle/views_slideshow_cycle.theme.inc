@@ -53,9 +53,9 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   // want to add is not already there. If it is already there then append -[num]
   // to the id to make it unique.
   $slideshow_count = 1;
-  global $processedCycles;
-  if (is_array($processedCycles)) {
-    foreach ($processedCycles as $processedCycle) {
+  global $_views_slideshow_processedCycles;
+  if (is_array($_views_slideshow_processedCycles)) {
+    foreach ($_views_slideshow_processedCycles as $processedCycle) {
       if (stristr($processedCycle, '#views_slideshow_cycle_main_' . $vss_id)) {
         $slideshow_count++;
       }
@@ -84,7 +84,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $vars['#attached']['library'][] = 'views_slideshow_cycle/views_slideshow_cycle';
   $vars['#attached']['drupalSettings']['viewsSlideshowCycle']['#views_slideshow_cycle_main_' . $vss_id] = $settings;
 
-  $processedCycles['#views_slideshow_cycle_main_' . $vss_id] = '#views_slideshow_cycle_main_' . $vss_id;
+  $_views_slideshow_processedCycles['#views_slideshow_cycle_main_' . $vss_id] = '#views_slideshow_cycle_main_' . $vss_id;
 
   // Add hover intent library.
   if ($settings['pause']) {
