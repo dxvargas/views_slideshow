@@ -45,19 +45,19 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array(
-      'enable' => array('default' => 0),
-      'weight' => array('default' => 1),
-    );
+    return [
+      'enable' => ['default' => 0],
+      'weight' => ['default' => 1],
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfiguration() {
-    return array(
+    return [
       'id' => $this->getPluginId(),
-    ) + $this->configuration;
+    ] + $this->configuration;
   }
 
   /**
@@ -72,7 +72,7 @@ abstract class ViewsSlideshowWidgetTypeBase extends PluginBase implements ViewsS
    * {@inheritdoc}
    */
   public function calculateDependencies() {
-    return array();
+    return [];
   }
 
   /**

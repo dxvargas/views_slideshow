@@ -32,7 +32,7 @@ abstract class ViewsSlideshowWidgetBase extends PluginBase implements ViewsSlide
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    return array();
+    return [];
   }
 
   /**
@@ -45,16 +45,16 @@ abstract class ViewsSlideshowWidgetBase extends PluginBase implements ViewsSlide
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array();
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfiguration() {
-    return array(
+    return [
       'id' => $this->getPluginId(),
-    ) + $this->configuration;
+    ] + $this->configuration;
   }
 
   /**
@@ -75,7 +75,7 @@ abstract class ViewsSlideshowWidgetBase extends PluginBase implements ViewsSlide
    * {@inheritdoc}
    */
   public function calculateDependencies() {
-    return array();
+    return [];
   }
 
   /**
