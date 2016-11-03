@@ -56,8 +56,8 @@ class StyleSlideshowTest extends PluginTestBase {
     $this->drupalGet('test-style-slideshow');
 
     // Ensure no controls are displayed.
-    $this->assertFalse($this->cssSelect('.views-slideshow-controls-top'));
-    $this->assertFalse($this->cssSelect('.views-slideshow-controls-bottom'));
+    $this->assertFalse(count($this->cssSelect('.views-slideshow-controls-top')));
+    $this->assertFalse(count($this->cssSelect('.views-slideshow-controls-bottom')));
 
     // Test top widget position.
     $view = View::load('test_style_slideshow');
@@ -75,10 +75,12 @@ class StyleSlideshowTest extends PluginTestBase {
     $view->save();
 
     $this->drupalGet('test-style-slideshow');
-    $this->assertTrue($this->cssSelect('.views-slideshow-controls-top'));
-    $this->assertFalse($this->cssSelect('.views-slideshow-controls-bottom'));
+    $this->assertTrue(count($this->cssSelect('.views-slideshow-controls-top')));
+    $this->assertFalse(count($this->cssSelect('.views-slideshow-controls-bottom')));
 
     // Test bottom widget position.
+    $view = View::load('test_style_slideshow');
+    $display = &$view->getDisplay('default');
     $display['display_options']['style']['options']['widgets'] = [
       'bottom' => [
         'views_slideshow_controls' => [
@@ -93,8 +95,8 @@ class StyleSlideshowTest extends PluginTestBase {
     $view->save();
 
     $this->drupalGet('test-style-slideshow');
-    $this->assertFalse($this->cssSelect('.views-slideshow-controls-top'));
-    $this->assertTrue($this->cssSelect('.views-slideshow-controls-bottom'));
+    $this->assertFalse(count($this->cssSelect('.views-slideshow-controls-top')));
+    $this->assertTrue(count($this->cssSelect('.views-slideshow-controls-bottom')));
   }
 
 }
