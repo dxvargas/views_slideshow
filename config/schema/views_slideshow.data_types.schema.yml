@@ -19,6 +19,12 @@ views_slideshow_control_group:
       type: views_slideshow_widget
       label: 'Slideshow controls'
       mapping:
+        enable:
+          type: boolean
+          label: 'Show widget'
+        weight:
+          type: string
+          label: 'Sort order'
         hide_on_single_slide:
           type: string
           label: 'Hide if only one slide'
@@ -32,6 +38,12 @@ views_slideshow_control_group:
       type: views_slideshow_widget
       label: 'Slideshow pager'
       mapping:
+        enable:
+          type: boolean
+          label: 'Show widget'
+        weight:
+          type: string
+          label: 'Sort order'
         hide_on_single_slide:
           type: string
           label: 'Hide if only one slide'
