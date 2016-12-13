@@ -98,7 +98,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
 
   $items = [];
   $index = 0;
-  $vars['rendered_rows'] = '';
+  $vars['rendered_rows'] = [];
   foreach ($rows as $count => $item) {
     $items[] = $item;
     if (count($items) == $settings['items_per_slide'] || $count == (count($rows) - 1)) {
@@ -131,7 +131,7 @@ function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
   }
   $vars['attributes']['class'][] = ($vars['count'] % 2) ? 'views-row-even' : 'views-row-odd';
 
-  $vars['rendered_items'] = '';
+  $vars['rendered_items'] = [];
   foreach ($vars['items'] as $item_count => $item) {
     $vars['rendered_items'][] = [
       '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_cycle_main_frame_row_item'),
@@ -177,11 +177,11 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
     $slide_count = ceil($slide_count);
   }
 
-  $vars['rendered_field_items'] = '';
+  $vars['rendered_field_items'] = [];
   if (empty($vars['settings']['hide_on_single_slide']) || $slide_count > 1) {
     foreach ($vars['view']->result as $count => $node) {
       if ($count < $slide_count) {
-        $rendered_fields = '';
+        $rendered_fields = [];
         foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
           if ($use !== 0 && is_object($vars['view']->field[$field])) {
             $rendered_fields[] = [
