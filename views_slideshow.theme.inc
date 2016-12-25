@@ -179,7 +179,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
     return '';
   }
 
-  // Add javascript settings for the pager type.
+  // Add JavaScript settings for the pager type.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPager'][$vars['vss_id']] = [
     $vars['location'] => [
@@ -207,7 +207,7 @@ function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
  * Theme pager fields.
  */
 function template_preprocess_views_slideshow_pager_fields(&$vars) {
-  // Add javascript settings for the field.
+  // Add JavaScript settings for the field.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPagerFields'][$vars['vss_id']] = [
     $vars['location'] => [
@@ -276,7 +276,7 @@ function template_preprocess_views_slideshow_pager_field_item(&$vars) {
  * @ingroup themeable
  */
 function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
-  // Add javascript settings for the controls type.
+  // Add JavaScript settings for the controls type.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowControls'][$vars['vss_id']] = [
     $vars['location'] => [
