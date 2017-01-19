@@ -119,9 +119,18 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
       $weight['bottom'][$i] = [];
     }
 
+    $slide_count = count($view->result);
+    if ($slide_count && $vars['view']->style_plugin->options['slideshow_type'] == 'views_slideshow_cycle') {
+      $items_per_slide = $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide'];
+      $slide_count = $slide_count / $items_per_slide;
+    }
     foreach ($widgetTypes as $widgetTypeId => $widgetTypeName) {
       foreach ($weight as $location => $order) {
         if ($options['widgets'][$location][$widgetTypeId]['enable']) {
+          // If hide on single slide and only a single slide skip rendering.
+          if ($options['widgets'][$location][$widgetTypeId]['hide_on_single_slide'] && $slide_count < 2) {
+            continue;
+          }
           $widgetWeight = ($options['widgets'][$location][$widgetTypeId]['weight'] > count($widgetTypes)) ? count($widgetTypes) : $options['widgets'][$location][$widgetTypeId]['weight'];
 
           $weight[$location][$widgetWeight][] = [
@@ -175,10 +184,6 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
  * @ingroup themeable
  */
 function template_preprocess_views_slideshow_pager_widget_render(&$vars) {
-  if (isset($vars['settings']['hide_on_single_slide']) && $vars['settings']['hide_on_single_slide'] === 1 && count($vars['rows']) < 2) {
-    return '';
-  }
-
   // Add JavaScript settings for the pager type.
   $vars['#attached']['library'][] = 'views_slideshow/widget_info';
   $vars['#attached']['drupalSettings']['viewsSlideshowPager'][$vars['vss_id']] = [
@@ -227,30 +232,28 @@ function template_preprocess_views_slideshow_pager_fields(&$vars) {
   // Render all the fields unless there is only 1 slide and the user specified
   // to hide them when there is only one slide.
   $vars['rendered_field_items'] = [];
-  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['view']->result) > $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide']) {
-    foreach ($vars['view']->result as $count => $node) {
-      $rendered_fields = [];
-      foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
-        if ($use !== 0 && is_object($vars['view']->field[$field])) {
-          $rendered_fields[] = [
-            '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
-            '#view' => $vars['view'],
-            '#label' => $vars['view']->field[$field]->options['label'],
-            '#output' => $vars['view']->style_plugin->getField($count, $field),
-            '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
-          ];
-        }
+  foreach ($vars['view']->result as $count => $node) {
+    $rendered_fields = [];
+    foreach ($vars['settings']['views_slideshow_pager_fields']['views_slideshow_pager_fields_fields'] as $field => $use) {
+      if ($use !== 0 && is_object($vars['view']->field[$field])) {
+        $rendered_fields[] = [
+          '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_field'),
+          '#view' => $vars['view'],
+          '#label' => $vars['view']->field[$field]->options['label'],
+          '#output' => $vars['view']->style_plugin->getField($count, $field),
+          '#css_identifier' => Html::cleanCssIdentifier($vars['view']->field[$field]->field),
+        ];
       }
-
-      $vars['rendered_field_items'][] = [
-        '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
-        '#vss_id' => $vars['vss_id'],
-        '#item' => $rendered_fields,
-        '#count' => $count,
-        '#location' => $vars['location'],
-        '#length' => count($vars['view']->result),
-      ];
     }
+
+    $vars['rendered_field_items'][] = [
+      '#theme' => $vars['view']->buildThemeFunctions('views_slideshow_pager_field_item'),
+      '#vss_id' => $vars['vss_id'],
+      '#item' => $rendered_fields,
+      '#count' => $count,
+      '#location' => $vars['location'],
+      '#length' => count($vars['view']->result),
+    ];
   }
 }
 
@@ -284,17 +287,14 @@ function template_preprocess_views_slideshow_controls_widget_render(&$vars) {
     ],
   ];
 
-  $output = '';
-  if (empty($vars['settings']['hide_on_single_slide']) || count($vars['rows']) > $vars['view']->style_plugin->options['views_slideshow_cycle']['items_per_slide']) {
-    $output = [
-      '#theme' => $vars['view']->buildThemeFunctions($vars['settings']['type']),
-      '#vss_id' => $vars['vss_id'],
-      '#view' => $vars['view'],
-      '#settings' => $vars['settings'],
-      '#location' => $vars['location'],
-      '#rows' => $vars['rows'],
-    ];
-  }
+  $output = [
+    '#theme' => $vars['view']->buildThemeFunctions($vars['settings']['type']),
+    '#vss_id' => $vars['vss_id'],
+    '#view' => $vars['view'],
+    '#settings' => $vars['settings'],
+    '#location' => $vars['location'],
+    '#rows' => $vars['rows'],
+  ];
 
   return \Drupal::service('renderer')->render($output);
 }
