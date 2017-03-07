@@ -2,7 +2,6 @@ name: Views Slideshow Cycle
 type: module
 description: 'Adds a Rotating slideshow mode to Views Slideshow.'
 package: Views
-version: 8.4
 core: 8.x
 dependencies:
   - views_slideshow
