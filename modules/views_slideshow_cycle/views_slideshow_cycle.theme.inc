@@ -10,7 +10,7 @@ use Drupal\Component\Utility\Html;
 /**
  * Views Slideshow: Theme the main frame wrapper.
  *
- * @ingroup themeable
+ * @ingroup vss_theme
  */
 function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
   $settings = $vars['settings'];
@@ -143,7 +143,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
 /**
  * Views Slideshow slideshow rows.
  *
- * @ingroup themeable
+ * @ingroup vss_theme
  */
 function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
   $current = $vars['count'] + 1;
@@ -171,7 +171,7 @@ function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
 /**
  * Views Slideshow slideshow row items.
  *
- * @ingroup themeable
+ * @ingroup vss_theme
  */
 function template_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
   $vars['attributes']['class'][] = 'views-row views-row-' . $vars['count'];
@@ -191,6 +191,8 @@ function template_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
 
 /**
  * Implements hook_preprocess_views_slideshow_pager_fields().
+ *
+ * @ingroup vss_theme
  */
 function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) {
   $slide_count = count($vars['view']->result);
@@ -236,6 +238,8 @@ function _views_slideshow_cycle_preprocess_views_slideshow_pager_fields(&$vars) 
 
 /**
  * Implements hook_preprocess_views_slideshow_slide_counter().
+ *
+ * @ingroup vss_theme
  */
 function _views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) {
   $options = $vars['view']->style_plugin->options['views_slideshow_cycle'];
