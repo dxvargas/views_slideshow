@@ -19,6 +19,12 @@ controls_text:
     theme:
       css/controls_text.css: {}
 
+pager_bullets:
+  version: VERSION
+  css:
+    component:
+      css/views-slideshow-pager-bullets.css: {}
+
 jquery_hoverIntent:
   remote: https://github.com/briancherne/jquery-hoverIntent
   version: 1.9
