@@ -5,6 +5,6 @@ package: Testing
 version: VERSION
 core: 8.x
 dependencies:
-  - views
-  - views_slideshow
-  - views_slideshow_cycle
+  - drupal:views
+  - views_slideshow:views_slideshow
+  - views_slideshow:views_slideshow_cycle
