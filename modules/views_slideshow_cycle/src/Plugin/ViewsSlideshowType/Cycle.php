@@ -61,8 +61,8 @@ class Cycle extends ViewsSlideshowTypeBase {
         'nowrap' => ['default' => 0],
         'fixed_height' => ['default' => 1],
         'items_per_slide' => ['default' => 1],
-        'items_per_slide_first' => array('default' => FALSE),
-        'items_per_slide_first_number' => array('default' => 1),
+        'items_per_slide_first' => ['default' => FALSE],
+        'items_per_slide_first_number' => ['default' => 1],
         'wait_for_image_load' => ['default' => 1],
         'wait_for_image_load_timeout' => ['default' => 3000],
 
