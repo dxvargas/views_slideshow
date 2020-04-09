@@ -2,6 +2,7 @@
 namespace Drupal\views_slideshow_cycle\Commands;
 
 use Drush\Commands\DrushCommands;
+use Drush\Drush;
 
 /**
  * Drush commands for Views Slideshow Cycle.
@@ -94,7 +95,7 @@ class ViewsSlideshowCycleCommands extends DrushCommands {
     // Be sure we can write in the directory.
     $perms = substr(sprintf('%o', fileperms($path)), -4);
     if ($perms !== '0755') {
-      drush_shell_exec('chmod 755 ' . $path);
+      Drush::process('chmod 755 ' . $path);
     }
     else {
       $perms = NULL;
@@ -108,7 +109,7 @@ class ViewsSlideshowCycleCommands extends DrushCommands {
         '@name' => $name,
       ]));
     }
-    elseif (drush_op('chdir', $path) && drush_shell_exec('wget ' . $url)) {
+    elseif (drush_op('chdir', $path) && Drush::process('wget ' . $url)) {
       $this->logger()->success(dt('The latest version of @name has been downloaded to @path', [
         '@name' => $name,
         '@path' => $path,
@@ -125,7 +126,7 @@ class ViewsSlideshowCycleCommands extends DrushCommands {
 
     // Restore the previous permissions.
     if ($perms) {
-      drush_shell_exec('chmod ' . $perms . ' ' . $path);
+      Drush::process('chmod ' . $perms . ' ' . $path);
     }
   }
 

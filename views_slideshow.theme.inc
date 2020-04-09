@@ -57,7 +57,7 @@ function _views_slideshow_preprocess_views_view_slideshow(&$vars) {
     );
   }
   elseif (empty($options[$main_frame_module])) {
-    drupal_set_message(t('The options for @module does not exists.', ['@module' => $main_frame_module]), 'error');
+    \Drupal::messenger()->addMessage(t('The options for @module does not exists.', ['@module' => $main_frame_module]), 'error');
   }
   elseif (!empty($vars['rows'])) {
     $settings = $options[$main_frame_module];
