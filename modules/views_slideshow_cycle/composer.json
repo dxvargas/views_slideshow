@@ -13,7 +13,7 @@
     "support": {
         "issues": "https://www.drupal.org/project/issues/views_slideshow",
         "irc": "irc://irc.freenode.org/drupal-contribute",
-        "source": "https://cgit.drupalcode.org/views_slideshow"
+        "source": "https://git.drupalcode.org/project/views_slideshow"
     },
     "require": {},
     "extra": {
