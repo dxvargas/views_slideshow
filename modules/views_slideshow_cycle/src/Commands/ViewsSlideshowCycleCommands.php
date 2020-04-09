@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\views_slideshow_cycle\Commands;
 
 use Drush\Commands\DrushCommands;
@@ -70,7 +71,9 @@ class ViewsSlideshowCycleCommands extends DrushCommands {
   }
 
   /**
-   * Download and install the jQuery Cycle, jQuery hoverIntent, JSON2 and Pause libraries.
+   * Download and install the jQuery Cycle.
+   *
+   * JQuery hoverIntent, JSON2 and Pause libraries.
    *
    * @command views:slideshow:lib
    * @aliases dl-cycle-lib,views-slideshow-cycle-lib
