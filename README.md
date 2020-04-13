@@ -93,18 +93,14 @@ documentation.
 
 Current maintainers:
 
-  * [Nick Wilde](https://www.drupal.org/u/nickwilde)
+  * [Neslee Canil Pinto](https://www.drupal.org/u/neslee-canil-pinto)
 
 Past maintainers: 
 
   * [vbouchet](https://www.drupal.org/u/vbouchet) Initial 8.x port
   
   * [Adam Moore](https://www.drupal.org/u/redndahead)
-
-  * [aaron](https://www.drupal.org/u/aaron)
-
-  * [xiukun.zhou](https://www.drupal.org/u/xiukun.zhou)
-
-  * [wangqizhong](https://www.drupal.org/u/wangqizhong)
+   
+  * [Nick Wilde](https://www.drupal.org/u/nickwilde)
   
  Also, thanks to the many contributors via the issue queues.
