@@ -3,6 +3,7 @@ type: module
 description: 'Provides default views for tests.'
 package: Testing
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:views
   - views_slideshow:views_slideshow
