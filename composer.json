@@ -16,6 +16,50 @@
     "source": "https://git.drupalcode.org/project/views_slideshow"
   },
   "require": {
+    "cweagans/composer-patches": "^1.6",
+    "composer/installers": "^1.2",
+    "oomphinc/composer-installers-extender": "^1.1",
     "drupal/core": "^8 || ^9"
-  }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "malsup/cycle",
+        "version": "dev-master",
+        "type":"drupal-library",
+        "source": {
+          "url": "https://github.com/malsup/cycle",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "douglascrockfordmalsup/json-js",
+        "version": "dev-master",
+        "type":"drupal-library",
+        "source": {
+          "url": "https://github.com/douglascrockford/JSON-js",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "briancherne/jquery-hoverintent",
+        "version": "dev-master",
+        "type":"drupal-library",
+        "source": {
+          "url": "https://github.com/briancherne/jquery-hoverIntent",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }
+  ]
 }
